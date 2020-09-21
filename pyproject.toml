@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "mdgen"
+version = "0.1.0"
+description = "A library to generate random markdown text"
+authors = ["IgnisDa <ignisda2002@gmail.com>"]
+maintainers = ["IgnisDa <ignisda2002@gmail.com>"]
+license = "Apache-2.0"
+homepage = ""
+repository = "https://github.com/IgnisDa/python-random-markdown-generator/"
+keywords = []
+
+[tool.poetry.dependencies]
+python = "^3.8"
+mdutils = "^1.3.0"
+Faker = "^4.1.3"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.8.3"
+autopep8 = "^1.5.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
