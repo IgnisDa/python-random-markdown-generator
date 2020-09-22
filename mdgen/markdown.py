@@ -20,13 +20,17 @@ class MarkdownGenerator:
         return output
 
     def new_header(self, text: str = None, header_level: int = None,
-                   linebreak=True):
+                   linebreak=True, atx=True):
         if not isinstance(text, (str, int)):
             raise ValueError(f"`text` must be an instance of {str} or {int}")
         if not isinstance(header_level, (int,)):
             raise ValueError(f"`header_level` must be an instance of or {int}")
+        if not isinstance(linebreak, (bool,)):
+            raise ValueError(f"`linebreak` must be an instance of or {bool}")
+        if not isinstance(atx, (bool,)):
+            raise ValueError(f"`atx` must be an instance of or {bool}")
         header = MarkdownHeaderGenerator()
-        output = header.new_header(text, header_level, linebreak)
+        output = header.new_header(text, header_level, linebreak, atx)
         return output
 
     def new_bold_text(self, text: str = None):
