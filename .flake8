@@ -1,4 +1,2 @@
 [flake8]
-exclude =
-    personal/
 max-complexity = 10
