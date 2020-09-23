@@ -4,9 +4,12 @@ from mdgen.constants import LINESEPARATOR, MARKDOWN_HEADER, MARKDOWN_HEADER_ALT
 class MarkdownHeaderGenerator:
     """ This class creates markdown headers using input `text` and `level`. """
 
+    def __init__(self, atx=True):
+        self.atx = atx
+
     def new_header(self, text: str = None, header_level: int = None,
-                   linebreak=True, atx=True):
-        if not atx:
+                   linebreak=True):
+        if not self.atx:
             if linebreak:
                 return (
                     f"{text}{LINESEPARATOR}"

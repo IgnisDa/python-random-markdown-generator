@@ -115,40 +115,11 @@ class TestMarkdownGenerator:
 class TestMarkdownGeneratorExceptions:
 
     @pytest.mark.parametrize(
-        'input_data, expected_exception',
-        (
-            (None, ValueError),
-            (object, ValueError)
-        )
-    )
-    @pytest.mark.testing
-    def test_new_text(self, markdown_generator, input_data,
-                      expected_exception):
-        markdowngen = markdown_generator()
-        with pytest.raises(expected_exception):
-            markdowngen.new_text(input_data)
-
-    @pytest.mark.parametrize(
-        'input_data, expected_exception',
-        (
-            (None, ValueError),
-            (object, ValueError)
-        )
-    )
-    @pytest.mark.testing
-    def test_new_text_line(self, markdown_generator, input_data,
-                           expected_exception):
-        markdowngen = markdown_generator()
-        with pytest.raises(expected_exception):
-            markdowngen.new_text_line(input_data)
-
-    @pytest.mark.parametrize(
         'input_data, header_level, linebreak, atx, expected_exception',
         (
-            (None, 4, True, True, ValueError),
-            ('hello-header', 'str', True, True, ValueError),
-            ('hello-header', 1, object, True, ValueError),
-            ('hello-header', 1, False, object, ValueError),
+            ('hello-header', 'str', True, True, AttributeError),
+            ('hello-header', 1, object, True, AttributeError),
+            ('hello-header', 1, False, object, AttributeError),
         )
     )
     def test_new_header(self, markdown_generator, input_data, header_level,
@@ -159,64 +130,40 @@ class TestMarkdownGeneratorExceptions:
                 input_data, header_level, linebreak, atx
             )
 
-    @ pytest.mark.parametrize(
-        'input_data, expected_output',
+    @pytest.mark.parametrize(
+        'input_data, underscore, expected_exception',
         (
-            ('hello',  '**hello**'),
-            ('this stuff is awesome ', '**this stuff is awesome**'),
-            ('markdown_text\n',  '**markdown_text**'),
-        )
-    )
-    def test_new_bold_text(self, markdown_generator, input_data,
-                           expected_output):
-        markdowngen = markdown_generator()
-        output = markdowngen.new_bold_text(input_data)
-        assert output == expected_output
-
-    @ pytest.mark.parametrize(
-        'input_data, underscore, expected_output',
-        (
-            ('hello', False, '*hello*'),
-            ('this stuff is awesome ', False, '*this stuff is awesome*'),
-            ('markdown-text\n', False, '*markdown-text*'),
-            ('hello', True, '_hello_'),
-            ('this stuff is awesome ', True, '_this stuff is awesome_'),
-            ('markdown-text\n', True, '_markdown-text_'),
+            ('hello', object, '*hello*'),
         )
     )
     def test_new_italic_text(self, markdown_generator, input_data, underscore,
-                             expected_output):
+                             expected_exception):
         markdowngen = markdown_generator()
-        output = markdowngen.new_italic_text(input_data, underscore)
-        assert output == expected_output
+        with pytest.raises(AttributeError):
+            markdowngen.new_italic_text(input_data, underscore)
 
     @pytest.mark.parametrize(
-        'input_data, underscore, expected_output',
+        'input_data, underscore, expected_exception',
         (
-            ('hello', False, '***hello***'),
-            ('this stuff is awesome ', False, '***this stuff is awesome***'),
-            ('markdown_text\n', False, '***markdown_text***'),
-            ('hello', True, '_**hello**_'),
-            ('this stuff is awesome ', True, '_**this stuff is awesome**_'),
-            ('markdown_text\n',  True, '_**markdown_text**_'),
+            ('hello', object, AttributeError),
         )
     )
-    def test_new_bold_and_italic_text(self, markdown_generator, input_data,
-                                      underscore, expected_output):
+    def test_new_bold_and_italic_text(self, markdown_generator, input_data, underscore,
+                                      expected_exception):
         markdowngen = markdown_generator()
-        output = markdowngen.new_bold_and_italic_text(input_data, underscore)
-        assert output == expected_output
+        with pytest.raises(expected_exception):
+            markdowngen.new_bold_and_italic_text(input_data, underscore)
 
     @pytest.mark.parametrize(
-        'style, expected_output',
+        'style, expected_exception',
         (
-            ('hyphens', '---'),
-            ('asterisks', '***'),
-            ('underscores', '___'),
+            ('wrong-hyphens', AttributeError),
+            ('wrong-asterisks', AttributeError),
+            ('wrong-underscores', AttributeError),
         )
     )
     def test_new_horizontal_rule(self, markdown_generator, style,
-                                 expected_output):
+                                 expected_exception):
         markdowngen = markdown_generator()
-        output = markdowngen.new_horizontal_rule(style)
-        assert output == expected_output
+        with pytest.raises(expected_exception):
+            markdowngen.new_horizontal_rule(style)
