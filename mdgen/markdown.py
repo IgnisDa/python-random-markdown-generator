@@ -8,6 +8,7 @@ from mdgen.constants import LINESEPARATOR
 class MarkdownGenerator:
 
     def new_text(self, text: str = None):
+        """ Returns the `text` as it is. """
         text_output = MarkdownTextGenerator()
         output = text_output.new_text(text)
         return output
@@ -79,6 +80,15 @@ class MarkdownGenerator:
         output = ''
         for list_item in list_items_list:
             output += self.new_unordered_list_item(list_item, style)
+            output += LINESEPARATOR
+        if not linebreak:
+            output = output[:-1]
+        return output
+
+    def new_ordered_list(self, list_items_list: list, linebreak: bool = True):
+        output = ''
+        for index, list_item in enumerate(list_items_list, 1):
+            output += self.new_ordered_list_item(list_item, index)
             output += LINESEPARATOR
         if not linebreak:
             output = output[:-1]

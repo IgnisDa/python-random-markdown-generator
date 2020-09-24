@@ -1,6 +1,5 @@
 import pytest
-
-from mdgen.markdown import MarkdownGenerator
+from mdgen import MarkdownGenerator, MarkdownOutputGenerator
 
 
 @pytest.fixture()
@@ -10,3 +9,12 @@ def markdown_generator():
         return MarkdownGenerator(*args, **kwargs)
 
     return _markdown_generator
+
+
+@pytest.fixture()
+def markdown_output_generator():
+
+    def _markdown_output_generator(*args, **kwargs):
+        return MarkdownOutputGenerator(*args, **kwargs)
+
+    return _markdown_output_generator

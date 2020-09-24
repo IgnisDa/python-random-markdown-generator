@@ -172,6 +172,19 @@ class TestMarkdownGenerator:
         output = markdowngen.new_unordered_list(list_items_list, style, linebreak)
         assert output == expected_output
 
+    @pytest.mark.parametrize(
+        'list_items_list, linebreak, expected_output',
+        (
+            (['one', 'two', 'three'],  True, '1. one\n2. two\n3. three\n'),
+            (['one', 'two', 'three'],  False, '1. one\n2. two\n3. three'),
+        )
+    )
+    def test_new_ordered_list(self, list_items_list, linebreak,
+                              expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_ordered_list(list_items_list, linebreak)
+        assert output == expected_output
+
 
 class TestMarkdownGeneratorExceptions:
 
