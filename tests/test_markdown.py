@@ -140,18 +140,18 @@ class TestMarkdownGenerator:
         output = markdowngen.new_unordered_list(text, style)
         assert output == expected_output
 
-    @pytest.mark.parametrize(
-        'text, style, expected_output',
-        (
-            ('this is a test list one', 'asterisk', '* this is a test list one'),
-            ('this is a test list two', 'plus', '+ this is a test list two'),
-            ('this is a test list three', 'minus', '- this is a test list three'),
-        )
-    )
-    def test_new_ordered_list(self, text, style, expected_output, markdown_generator):
-        markdowngen = markdown_generator()
-        output = markdowngen.new_ordered_list(text, style)
-        assert output == expected_output
+    # @pytest.mark.parametrize(
+    #     'text, style, expected_output',
+    #     (
+    #         ('this is a test list one', 'asterisk', '* this is a test list one'),
+    #         ('this is a test list two', 'plus', '+ this is a test list two'),
+    #         ('this is a test list three', 'minus', '- this is a test list three'),
+    #     )
+    # )
+    # def test_new_ordered_list(self, text, style, expected_output, markdown_generator):
+    #     markdowngen = markdown_generator()
+    #     output = markdowngen.new_ordered_list(text, style)
+    #     assert output == expected_output
 
 
 class TestMarkdownGeneratorExceptions:
