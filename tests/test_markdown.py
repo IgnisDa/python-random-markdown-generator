@@ -1,4 +1,5 @@
 import pytest
+from mdgen.constants import LINESEPARATOR
 
 
 class TestMarkdownGenerator:
@@ -111,6 +112,47 @@ class TestMarkdownGenerator:
         output = markdowngen.new_horizontal_rule(style)
         assert output == expected_output
 
+    @pytest.mark.parametrize(
+        'sample_data_size, paragraph_size',
+        (
+            (10, 5),
+            (100, 100),
+            (500, 23),
+        )
+    )
+    def test_new_paragraph(self, sample_data_size,
+                           paragraph_size, markdown_generator, faker):
+        paragraph = faker.sentence(sample_data_size)
+        markdowngen = markdown_generator()
+        output = markdowngen.new_paragraph(paragraph, paragraph_size)
+        assert output[-1] == LINESEPARATOR
+
+    @pytest.mark.parametrize(
+        'text, style, expected_output',
+        (
+            ('this is a test list one', 'asterisk', '* this is a test list one'),
+            ('this is a test list two', 'plus', '+ this is a test list two'),
+            ('this is a test list three', 'minus', '- this is a test list three'),
+        )
+    )
+    def test_new_unordered_list(self, text, style, expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_unordered_list(text, style)
+        assert output == expected_output
+
+    @pytest.mark.parametrize(
+        'text, style, expected_output',
+        (
+            ('this is a test list one', 'asterisk', '* this is a test list one'),
+            ('this is a test list two', 'plus', '+ this is a test list two'),
+            ('this is a test list three', 'minus', '- this is a test list three'),
+        )
+    )
+    def test_new_ordered_list(self, text, style, expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_ordered_list(text, style)
+        assert output == expected_output
+
 
 class TestMarkdownGeneratorExceptions:
 
@@ -167,3 +209,17 @@ class TestMarkdownGeneratorExceptions:
         markdowngen = markdown_generator()
         with pytest.raises(expected_exception):
             markdowngen.new_horizontal_rule(style)
+
+    @pytest.mark.parametrize(
+        'text, style, expected_exception',
+        (
+            ('this is test one', 'wrong-plus', AttributeError),
+            ('this is test two', 'wrong-asterisk', AttributeError),
+            ('this is test three', 'wrong-minus', AttributeError),
+        )
+    )
+    def test_new_unordered_list(self, markdown_generator, text, style,
+                                expected_exception):
+        markdowngen = markdown_generator()
+        with pytest.raises(expected_exception):
+            markdowngen.new_unordered_list(text, style)

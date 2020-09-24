@@ -1,6 +1,7 @@
 from mdgen.base import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
-                        MarkdownItalicGenerator, MarkdownTextGenerator)
+                        MarkdownItalicGenerator, MarkdownListGenerator,
+                        MarkdownTextGenerator)
 
 
 class MarkdownGenerator:
@@ -52,4 +53,17 @@ class MarkdownGenerator:
             raise AttributeError(f"`style` must be among {permitted_styles}")
         horizontal_rule = MarkdownHorizontalRuleGenerator()
         output = horizontal_rule.new_horizontal_rule(style)
+        return output
+
+    def new_paragraph(self, text: str = None, paragraph_size: int = 79):
+        paragraph = MarkdownTextGenerator(paragraph_size)
+        output = paragraph.new_paragraph(text)
+        return output
+
+    def new_unordered_list(self, text: str = None, style: str = 'asterisk'):
+        permitted_styles = ['asterisk', 'plus', 'minus']
+        if style not in permitted_styles:
+            raise AttributeError(f"`style` must be among {permitted_styles}")
+        list_item = MarkdownListGenerator(style)
+        output = list_item.new_unordered_list(text)
         return output

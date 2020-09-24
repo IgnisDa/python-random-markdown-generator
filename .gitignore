@@ -132,3 +132,4 @@ dmypy.json
 personal/
 .vscode/
 Example_Markdown.md
+.tool-versions
