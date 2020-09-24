@@ -135,23 +135,42 @@ class TestMarkdownGenerator:
             ('this is a test list three', 'minus', '- this is a test list three'),
         )
     )
-    def test_new_unordered_list(self, text, style, expected_output, markdown_generator):
+    def test_new_unordered_list_item(self, text, style, expected_output,
+                                     markdown_generator):
         markdowngen = markdown_generator()
-        output = markdowngen.new_unordered_list(text, style)
+        output = markdowngen.new_unordered_list_item(text, style)
         assert output == expected_output
 
-    # @pytest.mark.parametrize(
-    #     'text, style, expected_output',
-    #     (
-    #         ('this is a test list one', 'asterisk', '* this is a test list one'),
-    #         ('this is a test list two', 'plus', '+ this is a test list two'),
-    #         ('this is a test list three', 'minus', '- this is a test list three'),
-    #     )
-    # )
-    # def test_new_ordered_list(self, text, style, expected_output, markdown_generator):
-    #     markdowngen = markdown_generator()
-    #     output = markdowngen.new_ordered_list(text, style)
-    #     assert output == expected_output
+    @pytest.mark.parametrize(
+        'text, index, expected_output',
+        (
+            ('this is a test list one', 1, '1. this is a test list one'),
+            ('list item two', 2, '2. list item two'),
+            ('part of ordered lists', 34, '34. part of ordered lists'),
+        )
+    )
+    def test_new_ordered_list_item(self, text, index, expected_output,
+                                   markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_ordered_list_item(text, index)
+        assert output == expected_output
+
+    @pytest.mark.parametrize(
+        'list_items_list, style, linebreak, expected_output',
+        (
+            (['one', 'two', 'three'], 'asterisk', True, '* one\n* two\n* three\n'),
+            (['one', 'two', 'three'], 'asterisk', False, '* one\n* two\n* three'),
+            (['hello', 'hi', 'hey'], 'plus', True, '+ hello\n+ hi\n+ hey\n'),
+            (['hello', 'hi', 'hey'], 'plus', False, '+ hello\n+ hi\n+ hey'),
+            (['day', 'night', 'evening'], 'minus', True, '- day\n- night\n- evening\n'),
+            (['day', 'night', 'evening'], 'minus', False, '- day\n- night\n- evening'),
+        )
+    )
+    def test_new_unordered_list(self, list_items_list, style, linebreak,
+                                expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_unordered_list(list_items_list, style, linebreak)
+        assert output == expected_output
 
 
 class TestMarkdownGeneratorExceptions:
@@ -218,8 +237,8 @@ class TestMarkdownGeneratorExceptions:
             ('this is test three', 'wrong-minus', AttributeError),
         )
     )
-    def test_new_unordered_list(self, markdown_generator, text, style,
-                                expected_exception):
+    def test_new_unordered_list_item(self, markdown_generator, text, style,
+                                     expected_exception):
         markdowngen = markdown_generator()
         with pytest.raises(expected_exception):
-            markdowngen.new_unordered_list(text, style)
+            markdowngen.new_unordered_list_item(text, style)

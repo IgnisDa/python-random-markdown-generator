@@ -2,6 +2,7 @@ from mdgen.base import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
                         MarkdownItalicGenerator, MarkdownListGenerator,
                         MarkdownTextGenerator)
+from mdgen.constants import LINESEPARATOR
 
 
 class MarkdownGenerator:
@@ -60,10 +61,25 @@ class MarkdownGenerator:
         output = paragraph.new_paragraph(text)
         return output
 
-    def new_unordered_list(self, text: str = None, style: str = 'asterisk'):
+    def new_unordered_list_item(self, text: str = None, style: str = 'asterisk'):
         permitted_styles = ['asterisk', 'plus', 'minus']
         if style not in permitted_styles:
             raise AttributeError(f"`style` must be among {permitted_styles}")
         list_item = MarkdownListGenerator(style)
-        output = list_item.new_unordered_list(text)
+        output = list_item.new_unordered_list_item(text)
+        return output
+
+    def new_ordered_list_item(self, text: str = None, index: int = 1):
+        list_item = MarkdownListGenerator()
+        output = list_item.new_ordered_list_item(text, index)
+        return output
+
+    def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
+                           linebreak: bool = True):
+        output = ''
+        for list_item in list_items_list:
+            output += self.new_unordered_list_item(list_item, style)
+            output += LINESEPARATOR
+        if not linebreak:
+            output = output[:-1]
         return output
