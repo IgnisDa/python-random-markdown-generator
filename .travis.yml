@@ -12,3 +12,16 @@ install:
   - pip install tox-travis
 script:
   - tox
+
+before_deploy:
+  - poetry config repositories.testpypi https://test.pypi.org/legacy/
+  - poetry config http-basic.testpypi $TESTPYPI_USERNAME $TESTPYPI_PASS
+  - poetry build
+
+deploy:
+  provider: script
+  script: poetry publish -r testpypi
+  on:
+    repo: IgnisDa/python-random-markdown-generator
+    branch: master
+    condition: "$TRAVIS_PYTHON_VERSION == 3.8.5"
