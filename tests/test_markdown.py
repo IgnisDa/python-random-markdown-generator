@@ -101,9 +101,9 @@ class TestMarkdownGenerator:
     @pytest.mark.parametrize(
         'style, expected_output',
         (
-            ('hyphens', '---'),
-            ('asterisks', '***'),
-            ('underscores', '___'),
+            ('hyphens', '---\n'),
+            ('asterisks', '***\n'),
+            ('underscores', '___\n'),
         )
     )
     def test_new_horizontal_rule(self, markdown_generator, style,
