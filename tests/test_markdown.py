@@ -164,6 +164,8 @@ class TestMarkdownGenerator:
             (['hello', 'hi', 'hey'], 'plus', False, '+ hello\n+ hi\n+ hey'),
             (['day', 'night', 'evening'], 'minus', True, '- day\n- night\n- evening\n'),
             (['day', 'night', 'evening'], 'minus', False, '- day\n- night\n- evening'),
+            # (['first', ['sub1', 'sub2']], 'asterisk',
+            #  True, '* first\n\t* sub1\n\t* sub2\n')
         )
     )
     def test_new_unordered_list(self, list_items_list, style, linebreak,
@@ -183,6 +185,37 @@ class TestMarkdownGenerator:
                               expected_output, markdown_generator):
         markdowngen = markdown_generator()
         output = markdowngen.new_ordered_list(list_items_list, linebreak)
+        assert output == expected_output
+
+    @pytest.mark.parametrize(
+        'list_items_list, expected_output',
+        (
+            (
+                [
+                    ['one', 'two', 'three'],
+                    ['four', 'five', 'six'],
+                    ['seven', 'eight', 'nine']
+                ],
+                '|one|two|three|\n|---|---|-----|\n|four|five|six|\n|seven|eight|nine|\n'
+            ),
+            (
+                [
+                    ['el1', 'el4', 'el7', 'el10'],
+                    ['el2', 'el5', 'el8', 'el11'],
+                    ['el3', 'el6', 'el9', 'el12']
+                ],
+                ('|el1|el4|el7|el10|\n'
+                 '|---|---|---|----|\n'
+                 '|el2|el5|el8|el11|\n'
+                 '|el3|el6|el9|el12|\n'
+                 )
+            ),
+        )
+    )
+    def test_new_table(self, list_items_list,
+                       expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_table(list_items_list)
         assert output == expected_output
 
 

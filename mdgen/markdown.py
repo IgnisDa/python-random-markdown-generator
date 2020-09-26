@@ -1,7 +1,7 @@
 from mdgen.base import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
                         MarkdownItalicGenerator, MarkdownListGenerator,
-                        MarkdownTextGenerator)
+                        MarkdownTableGenerator, MarkdownTextGenerator)
 from mdgen.constants import LINESEPARATOR
 
 
@@ -78,9 +78,11 @@ class MarkdownGenerator:
     def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
                            linebreak: bool = True):
         output = ''
+        # indent = 0
+
         for list_item in list_items_list:
-            output += self.new_unordered_list_item(list_item, style)
-            output += LINESEPARATOR
+            output += (f"{self.new_unordered_list_item(list_item, style)}"
+                       f"{LINESEPARATOR}")
         if not linebreak:
             output = output[:-1]
         return output
@@ -93,3 +95,38 @@ class MarkdownGenerator:
         if not linebreak:
             output = output[:-1]
         return output
+
+    def new_table(self, list_items_list: list):
+        table = MarkdownTableGenerator()
+        output = table.new_table(list_items_list)
+        return output
+
+# if __name__ == "__main__":
+#     # m = MarkdownGenerator()
+#     # x = m.new_unordered_list(my_list)
+#     # x = my_list
+#     indent =0
+#     for m in my_list:
+
+# def my_recur(my_list):
+#     output = ''
+#     for m in my_list:
+#         if isinstance(m, (list, tuple)):
+#             output += f"\t{my_recur(m)}\n"
+#         else:
+#             output += f"{m}\n"
+#     return output
+
+
+# my_list = [
+#     'hello',
+#     [
+#         'sub',
+#         [
+#             '123', 'abc'
+#         ],
+#         'sub2'
+#     ],
+#     'second'
+# ]
+# print(my_recur(my_list))
