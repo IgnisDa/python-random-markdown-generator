@@ -16,13 +16,16 @@ script:
 before_deploy:
   - poetry config repositories.testpypi https://test.pypi.org/legacy/
   - poetry config http-basic.testpypi $TESTPYPI_USERNAME $TESTPYPI_PASS
+  - poetry config http-basic.pypi $PYPI_USERNAME $PYPI_PASS
   - poetry build
 
 deploy:
   provider: script
-  script: poetry publish -r testpypi
+  script:
+    - poetry publish -r testpypi
+    - poetry publish
   skip_cleanup: true
   on:
     repo: IgnisDa/python-random-markdown-generator
-    branch: master
+    branch: release
     condition: "$TRAVIS_PYTHON_VERSION == 3.8.5"
