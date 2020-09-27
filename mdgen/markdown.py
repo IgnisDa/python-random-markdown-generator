@@ -1,25 +1,45 @@
 from mdgen.base import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
-                        MarkdownItalicGenerator, MarkdownListGenerator,
+                        MarkdownImageGenerator, MarkdownItalicGenerator,
+                        MarkdownLinkGenerator, MarkdownListGenerator,
                         MarkdownTableGenerator, MarkdownTextGenerator)
 from mdgen.constants import LINESEPARATOR
 
 
 class MarkdownGenerator:
 
-    def new_text(self, text: str = None):
-        """ Returns the `text` as it is. """
+    def new_text(self, text: str):
+        """
+        Returns the `text` as it is.
+        >>> m = MarkdownGenerator()
+        >>> m.new_text('This is a test text')
+        'This is a test text'
+        """
         text_output = MarkdownTextGenerator()
         output = text_output.new_text(text)
         return output
 
-    def new_text_line(self, text: str = None):
+    def new_text_line(self, text: str):
+        """
+        Returns a new text line, and adds a linebreak to its end.
+        >>> m = MarkdownGenerator()
+        >>> m.new_text_line('This is a test text line')
+        'This is a test text line\\n'
+        """
         text_line = MarkdownTextGenerator()
         output = text_line.new_text_line(text)
         return output
 
-    def new_header(self, text: str = None, header_level: int = None,
+    def new_header(self, text: str, header_level: int = None,
                    linebreak=True, atx=True):
+        """
+        Returns a markdown header, using `text` and `header_level`, adds a
+        linebreak to it (default behavior can be changed using
+        `linebreak=False`). Smaller the `header_level`, larger the header.
+        >>> m = MarkdownGenerator()
+        >>> m.new_header('This is a test header', 2)
+        '## This is a test header\\n'
+        """
         if not isinstance(header_level, (int,)):
             raise AttributeError(f"`header_level` must be an instance of or {int}")
         if not isinstance(linebreak, (bool,)):
@@ -30,26 +50,50 @@ class MarkdownGenerator:
         output = header.new_header(text, header_level, linebreak)
         return output
 
-    def new_bold_text(self, text: str = None):
+    def new_bold_text(self, text: str):
+        """
+        Returns the `text` bolded.
+        >>> m = MarkdownGenerator()
+        >>> m.new_bold_text('This is a test')
+        '**This is a test**'
+        """
         bold_text = MarkdownBoldGenerator()
         output = bold_text.new_bold_text(text)
         return output
 
-    def new_italic_text(self, text: str = None, underscore=False):
+    def new_italic_text(self, text: str, underscore=True):
+        """
+        Returns the `text` in italics.
+        >>> m = MarkdownGenerator()
+        >>> m.new_italic_text('This is a test')
+        '_This is a test_'
+        """
         if not isinstance(underscore, (bool,)):
             raise AttributeError(f"`underscore` must be an instance of or {bool}")
         italic_text = MarkdownItalicGenerator()
         output = italic_text.new_italic_text(text, underscore)
         return output
 
-    def new_bold_and_italic_text(self, text: str = None, underscore=False):
+    def new_bold_and_italic_text(self, text: str, underscore=True):
+        """
+        Returns the `text` bolded and italic.
+        >>> m = MarkdownGenerator()
+        >>> m.new_bold_and_italic_text('This is a test')
+        '_**This is a test**_'
+        """
         if not isinstance(underscore, (bool,)):
             raise AttributeError(f"`underscore` must be an instance of or {bool}")
         bolded = self.new_bold_text(text)
         bolded_and_italic = self.new_italic_text(bolded, underscore)
         return bolded_and_italic
 
-    def new_horizontal_rule(self, style: str = None):
+    def new_horizontal_rule(self, style: str = 'hyphens'):
+        """
+        Returns a markdown horizontal line used to separate sections.
+        >>> m = MarkdownGenerator()
+        >>> m.new_horizontal_rule()
+        '---\\n'
+        """
         permitted_styles = ['hyphens', 'asterisks', 'underscores']
         if style not in permitted_styles:
             raise AttributeError(f"`style` must be among {permitted_styles}")
@@ -57,12 +101,26 @@ class MarkdownGenerator:
         output = horizontal_rule.new_horizontal_rule(style)
         return output
 
-    def new_paragraph(self, text: str = None, paragraph_size: int = 79):
+    def new_paragraph(self, text: str, paragraph_size: int = 79):
+        """
+        Returns a markdown paragraph, each line formatted to contain
+        `paragraph_size` characters each. Defaults to 79.
+        >>> m = MarkdownGenerator()
+        >>> m.new_paragraph('hello this is an epic paragraph', 12)
+        'hello this is an \\nepic paragraph \\n'
+        """
         paragraph = MarkdownTextGenerator(paragraph_size)
         output = paragraph.new_paragraph(text)
         return output
 
-    def new_unordered_list_item(self, text: str = None, style: str = 'asterisk'):
+    def new_unordered_list_item(self, text: str, style: str = 'asterisk'):
+        """
+        Returns a single unordered markdown list item. an asterisk will be
+        prepended by deafult, can be changed by passing `style` argument.
+        >>> m = MarkdownGenerator()
+        >>> m.new_unordered_list_item('hello')
+        '* hello'
+        """
         permitted_styles = ['asterisk', 'plus', 'minus']
         if style not in permitted_styles:
             raise AttributeError(f"`style` must be among {permitted_styles}")
@@ -70,13 +128,27 @@ class MarkdownGenerator:
         output = list_item.new_unordered_list_item(text)
         return output
 
-    def new_ordered_list_item(self, text: str = None, index: int = 1):
+    def new_ordered_list_item(self, text: str, index: int = 1):
+        """
+        Returns a single ordered markdown list item. `index` will be the
+        number prepended, and if not supplied, defaults to 1.
+        >>> m = MarkdownGenerator()
+        >>> m.new_ordered_list_item('hello')
+        '1. hello'
+        """
         list_item = MarkdownListGenerator()
         output = list_item.new_ordered_list_item(text, index)
         return output
 
     def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
                            linebreak: bool = True):
+        """
+        Returns a markdown list of unordered list. `list_items_list` must be a
+        list of lists (or tuples).
+        >>> m = MarkdownGenerator()
+        >>> m.new_unordered_list(['hello', 'hi', 'how do you do?'])
+        '* hello\\n* hi\\n* how do you do?\\n'
+        """
         output = ''
         # indent = 0
 
@@ -88,6 +160,13 @@ class MarkdownGenerator:
         return output
 
     def new_ordered_list(self, list_items_list: list, linebreak: bool = True):
+        """
+        Returns a markdown list of ordered list. `list_items_list` must be a
+        list of lists (or tuples).
+        >>> m = MarkdownGenerator()
+        >>> m.new_ordered_list(['hello', 'hi', 'how do you do?'])
+        '1. hello\\n2. hi\\n3. how do you do?\\n'
+        """
         output = ''
         for index, list_item in enumerate(list_items_list, 1):
             output += self.new_ordered_list_item(list_item, index)
@@ -97,36 +176,53 @@ class MarkdownGenerator:
         return output
 
     def new_table(self, list_items_list: list):
+        """
+        Returns a markdown table. `list_items_list` must be a list of list
+        (or tuples).
+        >>> m = MarkdownGenerator()
+        >>> m.new_table([['hello', 'hi', 'how do you do?'], ['1', '2', '3', '4']])
+        '|hello|hi|how do you do?|\\n|-----|--|--------------|\\n|1|2|3|4|\\n'
+        """
         table = MarkdownTableGenerator()
         output = table.new_table(list_items_list)
         return output
 
-# if __name__ == "__main__":
-#     # m = MarkdownGenerator()
-#     # x = m.new_unordered_list(my_list)
-#     # x = my_list
-#     indent =0
-#     for m in my_list:
+    def new_link(self, link_text: str, link_url: str = '', linebreak: bool = False):
+        """
+        Returns a markdown link which can be used to link external websites, or
+        even internal ones. If `link_url` is not provided, an empty link is
+        returned.
+        >>> m = MarkdownGenerator()
+        >>> m.new_link('Visit this link')
+        '[Visit this link]()'
+        >>> m.new_link('Visit this link', 'http://shadyUrl.com/')
+        '[Visit this link](http://shadyUrl.com/)'
+        """
+        link = MarkdownLinkGenerator()
+        output = link.new_link(link_text, link_url, linebreak)
+        return output
 
-# def my_recur(my_list):
-#     output = ''
-#     for m in my_list:
-#         if isinstance(m, (list, tuple)):
-#             output += f"\t{my_recur(m)}\n"
-#         else:
-#             output += f"{m}\n"
-#     return output
+    def new_comment(self, comment_text: str):
+        """ Returns the `comment_text` within markdown comment blocks.
+        >>> m = MarkdownGenerator()
+        >>> m.new_comment('This is a comment')
+        '<!-- This is a comment -->'
+        """
+        comment_output = MarkdownTextGenerator()
+        output = comment_output.new_comment(comment_text)
+        return output
 
-
-# my_list = [
-#     'hello',
-#     [
-#         'sub',
-#         [
-#             '123', 'abc'
-#         ],
-#         'sub2'
-#     ],
-#     'second'
-# ]
-# print(my_recur(my_list))
+    def new_image(self, alt_text: str, image_url: str, image_title: str = ''):
+        """
+        Returns a markdown link which can be used to link external websites, or
+        even internal ones. If `link_url` is not provided, an empty link is
+        returned.
+        >>> m = MarkdownGenerator()
+        >>> m.new_image('image one', 'http://example.org/?image=one')
+        '![image one](http://example.org/?image=one)'
+        >>> m.new_image('image two', 'http://example.org/?image=second', 'The 2nd image')
+        '![image two](http://example.org/?image=second "The 2nd image")'
+        """
+        image = MarkdownImageGenerator()
+        output = image.new_image(alt_text, image_url, image_title)
+        return output

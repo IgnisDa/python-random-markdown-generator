@@ -77,7 +77,7 @@ flake8
 ## Built With
 
 - [Poetry][1] - Dependency Management
-- [Mkdocs](https://www.mkdocs.org/) - Used to generate this project's
+- [Sphinx](https://www.sphinx-doc.org/en/master/index.html) - Used to generate this project's
   documentation.
 
 ## Contributing
@@ -96,7 +96,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 See also the list of [contributors](contributors.md) who participated in this project. If you
 have made any contribution to this project, please add it in
-[contributors.md](contributors.md)
+[contributors.md](contributors.md).
 
 ## License
 

@@ -2,3 +2,4 @@
 omit =  **.vscode**
         .tox
         **.cache**
+        docs/

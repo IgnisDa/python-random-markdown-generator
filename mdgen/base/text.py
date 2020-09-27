@@ -1,4 +1,5 @@
-from mdgen.constants import LINESEPARATOR
+from mdgen.constants import (LINESEPARATOR, MARKDOWN_COMMENT_CLOSE,
+                             MARKDOWN_COMMENT_OPEN)
 
 
 class MarkdownTextGenerator:
@@ -27,4 +28,8 @@ class MarkdownTextGenerator:
         output = output.replace(f"{LINESEPARATOR} ", LINESEPARATOR)
         if output[-1] != LINESEPARATOR:
             output = f"{output}{LINESEPARATOR}"
+        return output
+
+    def new_comment(self, comment_text: str):
+        output = f"{MARKDOWN_COMMENT_OPEN} {comment_text} {MARKDOWN_COMMENT_CLOSE}"
         return output

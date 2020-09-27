@@ -218,6 +218,50 @@ class TestMarkdownGenerator:
         output = markdowngen.new_table(list_items_list)
         assert output == expected_output
 
+    @pytest.mark.parametrize(
+        'link_text, link_url, linebreak, expected_output',
+        (
+            ('link text one', 'http://example.org/', True,
+             '[link text one](http://example.org/)\n'),
+            ('link text two', 'http://example.org/second', False,
+             '[link text two](http://example.org/second)'),
+        )
+    )
+    def test_new_link(self, link_text, link_url, linebreak,
+                      expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_link(link_text, link_url, linebreak)
+        assert output == expected_output
+
+    @pytest.mark.parametrize(
+        'comment_text, expected_output',
+        (
+            ('this is comment one', '<!-- this is comment one -->'),
+            ('this is comment two', '<!-- this is comment two -->'),
+            ('this is comment three', '<!-- this is comment three -->'),
+            ('this is comment four', '<!-- this is comment four -->'),
+        )
+    )
+    def test_new_comment(self, comment_text, expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_comment(comment_text)
+        assert output == expected_output
+
+    @pytest.mark.parametrize(
+        'alt_text, image_title, image_url, expected_output',
+        (
+            ('image one', '', 'http://example.org/?image=one',
+             '![image one](http://example.org/?image=one)'),
+            ('image two', 'The 2nd image', 'http://example.org/second/?image=second',
+             '![image two](http://example.org/second/?image=second "The 2nd image")'),
+        )
+    )
+    def test_new_image(self, alt_text, image_url, image_title,
+                       expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_image(alt_text, image_url, image_title)
+        assert output == expected_output
+
 
 class TestMarkdownGeneratorExceptions:
 
