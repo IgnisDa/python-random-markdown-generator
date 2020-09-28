@@ -30,8 +30,7 @@ class MarkdownGenerator:
         output = text_line.new_text_line(text)
         return output
 
-    def new_header(self, text: str, header_level: int = None,
-                   linebreak=True, atx=True):
+    def new_header(self, text: str, header_level: int = 1, linebreak=True, atx=True):
         """
         Returns a markdown header, using `text` and `header_level`, adds a
         linebreak to it (default behavior can be changed using
