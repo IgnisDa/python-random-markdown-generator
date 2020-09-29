@@ -34,7 +34,7 @@ deploy:
     edge: true
     local_dir: ./docs/_build/html/
     keep_history: true
-  on:
-    repo: IgnisDa/python-random-markdown-generator
-    branch: release
-    condition: "$TRAVIS_PYTHON_VERSION == 3.8.5"
+    on:
+      repo: IgnisDa/python-random-markdown-generator
+      branch: release
+      condition: "$TRAVIS_PYTHON_VERSION == 3.8.5"
