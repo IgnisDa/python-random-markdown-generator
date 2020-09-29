@@ -27,6 +27,10 @@ deploy:
       - poetry publish -r testpypi
       - poetry publish
     skip_cleanup: true
+    on:
+      repo: IgnisDa/python-random-markdown-generator
+      branch: master
+      condition: "$TRAVIS_PYTHON_VERSION == 3.8.5"
 
   - provider: pages:git.
     verbose: true
