@@ -12,6 +12,8 @@ install:
   - pip install tox-travis
 script:
   - tox
+  - make -C docs/ html
+  - touch docs/_build/html/.nojekyll
 
 before_deploy:
   - poetry config repositories.testpypi https://test.pypi.org/legacy/
@@ -20,11 +22,18 @@ before_deploy:
   - poetry build
 
 deploy:
-  provider: script
-  script:
-    - poetry publish -r testpypi
-    - poetry publish
-  skip_cleanup: true
+  - provider: script
+    script:
+      - poetry publish -r testpypi
+      - poetry publish
+    skip_cleanup: true
+
+  - provider: pages:git.
+    verbose: true
+    token: $GITHUB_TOKEN
+    edge: true
+    local_dir: ./docs/_build/html/
+    keep_history: true
   on:
     repo: IgnisDa/python-random-markdown-generator
     branch: release
