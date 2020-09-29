@@ -290,7 +290,7 @@ class MarkdownGenerator:
             >>> m.new_image('image one', 'http://example.org/?image=one')
             '![image one](http://example.org/?image=one)'
             >>> m.new_image('image two', 'http://example.org/?image=second',
-                'The 2nd image')
+            ...   'The 2nd image')
             '![image two](http://example.org/?image=second "The 2nd image")'
 
         """
