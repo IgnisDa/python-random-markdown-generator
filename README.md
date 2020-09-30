@@ -73,7 +73,7 @@ Then open `htmlcov/index.html` in your browser to see the test coverage.
 
 ### Coding style
 
-This project follows the [Pep8](https://pep8.org/) specifications. The maximum
+This project follows the [pep8](https://pep8.org/) specifications. The maximum
 line length has been increased to 90 characters. For the flake8 configuration
 used, see [tox.ini](tox.ini). The test suite automatically runs the linters by
 default, but you can run just the linting tests.
