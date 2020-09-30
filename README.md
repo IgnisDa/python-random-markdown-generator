@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.com/IgnisDa/python-random-markdown-generator.svg?branch=master)](https://travis-ci.com/IgnisDa/python-random-markdown-generator)
 
-[![Coverage
-Status](https://coveralls.io/repos/github/IgnisDa/python-random-markdown-generator/badge.svg?branch=master)](https://coveralls.io/github/IgnisDa/python-random-markdown-generator?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/IgnisDa/python-random-markdown-generator/badge.svg?branch=dev)](https://coveralls.io/github/IgnisDa/python-random-markdown-generator?branch=dev)
 
 A library to generate random markdown text.
 
@@ -42,6 +41,10 @@ poetry add mdgen
 ```python
 from mdgen import MarkdownGenerator
 ```
+
+## Documentation
+
+The documentation for this project can be found at https://ignisda.github.io/python-random-markdown-generator/.
 
 ## Running the tests
 

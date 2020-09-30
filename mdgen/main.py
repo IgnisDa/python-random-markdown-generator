@@ -40,6 +40,7 @@ class MarkdownOutputGenerator:
 
     def add_unordered_list_item(self, text: str, style: str = 'asterisk'):
         self.final_output += self.markdowngen.new_unordered_list_item(text, style)
+        self.final_output += LINESEPARATOR
 
     def add_ordered_list_item(self, text: str, index: int = 1):
         self.final_output += self.markdowngen.new_ordered_list_item(text, index)

@@ -69,7 +69,31 @@ class TestMarkdownOutputGenerator:
                     dict(method='add_horizontal_rule', args=dict(style='underscores')),
                 ],
                 'This is \na test \nparagraph \n___\n'
-            )
+            ),
+            (
+                [
+                    dict(method='add_unordered_list_item',
+                         args=dict(text='This is a test list item')),
+                    dict(method='add_horizontal_rule', args=dict(style='underscores')),
+                    dict(method='add_unordered_list_item',
+                         args=dict(text='List item 2', style='minus')),
+                    dict(method='add_unordered_list_item',
+                         args=dict(text='List item 3', style='plus')),
+                ],
+                '* This is a test list item\n___\n- List item 2\n+ List item 3\n'
+            ),
+            (
+                [
+                    dict(method='add_ordered_list_item',
+                         args=dict(text='This is a test list item')),
+                    dict(method='add_horizontal_rule', args=dict(style='underscores')),
+                    dict(method='add_ordered_list_item',
+                         args=dict(text='List item 2', index=2)),
+                    dict(method='add_ordered_list_item',
+                         args=dict(text='List item 3', index=5)),
+                ],
+                '1. This is a test list item\n___\n2. List item 2\n5. List item 3\n'
+            ),
         )
     )
     def test_output_generator(self, input_dict, expected_output,
@@ -79,5 +103,4 @@ class TestMarkdownOutputGenerator:
             func = getattr(markdownoutputgen, data['method'])
             func(**data['args'])
         output = markdownoutputgen.get_output_text()
-        print(repr(output), repr(expected_output))
         assert output == expected_output
