@@ -15,8 +15,7 @@ script:
   - tox
   - make -C docs/ html
   - touch docs/_build/html/.nojekyll
-  - #if : ($TRAVIS_PYTHON_VERSION == 3.8.5) 
-    coverage run --source mdgen -m pytest
+  - if [[ ${$TRAVIS_PYTHON_VERSION} == "3.8.5" ]]; then coverage run --source mdgen -m pytest;
   - coverage report -m
   
 after_success:
