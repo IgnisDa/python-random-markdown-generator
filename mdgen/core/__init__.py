@@ -7,9 +7,11 @@ from mdgen.core.link import MarkdownLinkGenerator
 from mdgen.core.lister import MarkdownListGenerator
 from mdgen.core.table import MarkdownTableGenerator
 from mdgen.core.text import MarkdownTextGenerator
+from mdgen.core.code import MarkdownCodeGenerator
 
 __all__ = [
     'MarkdownHeaderGenerator', 'MarkdownTextGenerator', 'MarkdownBoldGenerator',
     'MarkdownItalicGenerator', 'MarkdownHorizontalRuleGenerator', 'MarkdownListGenerator',
-    'MarkdownTableGenerator', 'MarkdownLinkGenerator', 'MarkdownImageGenerator'
+    'MarkdownTableGenerator', 'MarkdownLinkGenerator', 'MarkdownImageGenerator',
+    'MarkdownCodeGenerator'
 ]

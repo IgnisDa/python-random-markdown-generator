@@ -74,3 +74,7 @@ class MarkdownOutputGenerator:
     def add_image(self, alt_text: str, image_url: str, image_title: str = ''):
         self.final_output += self.markdowngen.new_image(alt_text, image_url, image_title)
         self.final_output += LINESEPARATOR
+
+    def add_code_block(self, code: str, language: str = 'python'):
+        self.final_output += self.markdowngen.new_code_block(code, language)
+        self.final_output += LINESEPARATOR

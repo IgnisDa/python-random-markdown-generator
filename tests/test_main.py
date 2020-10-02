@@ -92,6 +92,20 @@ class TestMarkdownOutputGenerator:
             #     ],
             #     '\t\t4. Test item\n___\n3. Hello test string\n'
             # ),
+            (
+                [
+                    dict(
+                        method='add_code_block',
+                        args=dict(code='import os\nprint(os.cwd())', language='python')
+                    ),
+                    dict(
+                        method='add_code_block',
+                        args=dict(code='for x in range(5):\n\tprint(x)', language='python')
+                    ),
+                ],
+                '```python\nimport os\nprint(os.cwd())\n```\n' +
+                '```python\nfor x in range(5):\n\tprint(x)\n```\n'
+            )
         )
     )
     def test_output_generator(self, input_dict, expected_output,
