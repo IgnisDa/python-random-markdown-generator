@@ -128,31 +128,31 @@ class TestMarkdownGenerator:
         assert output[-1] == LINESEPARATOR
 
     @pytest.mark.parametrize(
-        'text, style, expected_output',
+        'text, indent, style, expected_output',
         (
-            ('this is a test list one', 'asterisk', '* this is a test list one'),
-            ('this is a test list two', 'plus', '+ this is a test list two'),
-            ('this is a test list three', 'minus', '- this is a test list three'),
+            ('this is a test list one', 1, 'asterisk', '\t* this is a test list one'),
+            ('this is a test list two', 3, 'plus', '\t\t\t+ this is a test list two'),
+            ('this is a test list three', 0, 'minus', '- this is a test list three'),
         )
     )
-    def test_new_unordered_list_item(self, text, style, expected_output,
+    def test_new_unordered_list_item(self, text, indent, style, expected_output,
                                      markdown_generator):
         markdowngen = markdown_generator()
-        output = markdowngen.new_unordered_list_item(text, style)
+        output = markdowngen.new_unordered_list_item(text, indent, style)
         assert output == expected_output
 
     @pytest.mark.parametrize(
-        'text, index, expected_output',
+        'text, indent, index, expected_output',
         (
-            ('this is a test list one', 1, '1. this is a test list one'),
-            ('list item two', 2, '2. list item two'),
-            ('part of ordered lists', 34, '34. part of ordered lists'),
+            ('this is a test list one', 1, 1, '\t1. this is a test list one'),
+            ('list item two', 2, 0, '\t\t2. list item two'),
+            ('part of ordered lists', 0, 2, '2. part of ordered lists'),
         )
     )
-    def test_new_ordered_list_item(self, text, index, expected_output,
+    def test_new_ordered_list_item(self, text, index, indent, expected_output,
                                    markdown_generator):
         markdowngen = markdown_generator()
-        output = markdowngen.new_ordered_list_item(text, index)
+        output = markdowngen.new_ordered_list_item(text, index, indent)
         assert output == expected_output
 
     @pytest.mark.parametrize(
@@ -164,10 +164,11 @@ class TestMarkdownGenerator:
             (['hello', 'hi', 'hey'], 'plus', False, '+ hello\n+ hi\n+ hey'),
             (['day', 'night', 'evening'], 'minus', True, '- day\n- night\n- evening\n'),
             (['day', 'night', 'evening'], 'minus', False, '- day\n- night\n- evening'),
-            # ([('this is a text', 1), ('This is test text #2', 3)], 'asterisk',
-            #  True, '* this is a text\n\t\t\t* This is test text #2')
+            (['this THE text', ('This is test text #2', 3), ], 'asterisk',
+             True, '* this THE text\n\t\t\t* This is test text #2\n'),
         )
     )
+    @pytest.mark.testing
     def test_new_unordered_list(self, list_items_list, style, linebreak,
                                 expected_output, markdown_generator):
         markdowngen = markdown_generator()
@@ -320,15 +321,15 @@ class TestMarkdownGeneratorExceptions:
             markdowngen.new_horizontal_rule(style)
 
     @pytest.mark.parametrize(
-        'text, style, expected_exception',
+        'text, indent, style, expected_exception',
         (
-            ('this is test one', 'wrong-plus', AttributeError),
-            ('this is test two', 'wrong-asterisk', AttributeError),
-            ('this is test three', 'wrong-minus', AttributeError),
+            ('this is test one', 1, 'wrong-plus', AttributeError),
+            ('this is test two', 3, 'wrong-asterisk', AttributeError),
+            ('this is test three', 2, 'wrong-minus', AttributeError),
         )
     )
-    def test_new_unordered_list_item(self, markdown_generator, text, style,
+    def test_new_unordered_list_item(self, markdown_generator, text, indent, style,
                                      expected_exception):
         markdowngen = markdown_generator()
         with pytest.raises(expected_exception):
-            markdowngen.new_unordered_list_item(text, style)
+            markdowngen.new_unordered_list_item(text, indent, style)

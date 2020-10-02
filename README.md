@@ -97,7 +97,7 @@ conduct, and the process for submitting pull requests to us.
 
 We use [SemVer](http://semver.org/) for versioning.
 
-## Authors
+## Author
 
 - [IgnisDa](https://github.com/IgnisDa/) (**Diptesh Choudhuri**) - _Initial
   work_
@@ -108,12 +108,11 @@ have made any contribution to this project, please add it in
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md)
+This project is licensed under the Apache-2.0 License - see the [LICENSE.md](LICENSE.md)
 file for details.
 
 ## Acknowledgments
 
 - Hat tip to anyone whose code was used
-- Inspiration
 
 [1]: https://github.com/python-poetry/poetry

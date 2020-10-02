@@ -5,6 +5,3 @@ class MarkdownImageGenerator:
         if not image_title:
             output = output.replace(' ""', '')
         return output
-
-
-# ![image two](http: // example.org/second /?image=second "The 2nd image")

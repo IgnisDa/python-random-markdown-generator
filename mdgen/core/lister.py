@@ -1,3 +1,6 @@
+from mdgen.constants import INDENTATION
+
+
 class MarkdownListGenerator:
 
     list_symbol = '*'
@@ -10,8 +13,8 @@ class MarkdownListGenerator:
         elif style == 'asterisk':
             self.list_symbol = '*'
 
-    def new_unordered_list_item(self, text: str = None):
-        return f"{self.list_symbol} {text}"
+    def new_unordered_list_item(self, text: str = None, indent: int = 0):
+        return f"{INDENTATION*indent}{self.list_symbol} {text}"
 
-    def new_ordered_list_item(self, text: str = None, index: int = 1):
-        return f"{index}. {text}"
+    def new_ordered_list_item(self, text: str = None, indent: int = 0, index: int = 1):
+        return f"{INDENTATION*indent}{index}. {text}"

@@ -1,3 +1,5 @@
+from typing import List, Tuple
+
 from mdgen.constants import LINESEPARATOR
 from mdgen.core import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
@@ -151,7 +153,7 @@ class MarkdownGenerator:
         output = paragraph.new_paragraph(text)
         return output
 
-    def new_unordered_list_item(self, text: str, style: str = 'asterisk'):
+    def new_unordered_list_item(self, text: str, indent: int = 0, style: str = 'asterisk'):
         """
         Returns a single unordered markdown list item. an asterisk will be
         prepended by deafult, can be changed by passing `style` argument.
@@ -167,10 +169,10 @@ class MarkdownGenerator:
         if style not in permitted_styles:
             raise AttributeError(f"`style` must be among {permitted_styles}")
         list_item = MarkdownListGenerator(style)
-        output = list_item.new_unordered_list_item(text)
+        output = list_item.new_unordered_list_item(text, indent)
         return output
 
-    def new_ordered_list_item(self, text: str, index: int = 1):
+    def new_ordered_list_item(self, text: str, indent: int = 0, index: int = 1):
         """
         Returns a single ordered markdown list item. `index` will be the
         number prepended, and if not supplied, defaults to 1.
@@ -178,12 +180,12 @@ class MarkdownGenerator:
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
-            >>> m.new_ordered_list_item('hello')
-            '1. hello'
+            >>> m.new_ordered_list_item('hello', indent=2)
+            '\\t\\t1. hello'
 
         """
         list_item = MarkdownListGenerator()
-        output = list_item.new_ordered_list_item(text, index)
+        output = list_item.new_ordered_list_item(text, indent, index)
         return output
 
     def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
@@ -195,16 +197,19 @@ class MarkdownGenerator:
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
-            >>> m.new_unordered_list(['hello', 'hi', 'how do you do?'])
-            '* hello\\n* hi\\n* how do you do?\\n'
+            >>> m.new_unordered_list(['hello', 'hi', 'how do you do?', ('sup', 2)])
+            '* hello\\n* hi\\n* how do you do?\\n\\t\\t* sup\\n'
 
         """
         output = ''
-        # indent = 0
-
         for list_item in list_items_list:
-            output += (f"{self.new_unordered_list_item(list_item, style)}"
-                       f"{LINESEPARATOR}")
+            if isinstance(list_item, List) or isinstance(list_item, Tuple):
+                text, indent = list_item
+                output += (f"{self.new_unordered_list_item(text, indent, style=style)}"
+                           f"{LINESEPARATOR}")
+            else:
+                output += (f"{self.new_unordered_list_item(list_item, style=style)}"
+                           f"{LINESEPARATOR}")
         if not linebreak:
             output = output[:-1]
         return output
@@ -217,13 +222,17 @@ class MarkdownGenerator:
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
-            >>> m.new_ordered_list(['hello', 'hi', 'how do you do?'])
-            '1. hello\\n2. hi\\n3. how do you do?\\n'
+            >>> m.new_ordered_list([('hello', 1, 3), 'hi', 'how do you do?', ('sup', 2)])
+            '\\t3. hello\\n1. hi\\n1. how do you do?\\n\\t\\t1. sup\\n'
 
         """
         output = ''
         for index, list_item in enumerate(list_items_list, 1):
-            output += self.new_ordered_list_item(list_item, index)
+            if isinstance(list_item, List) or isinstance(list_item, Tuple):
+                text, indent = list_item
+                output += self.new_ordered_list_item(list_item, indent, index)
+            else:
+                output += self.new_ordered_list_item(list_item, index)
             output += LINESEPARATOR
         if not linebreak:
             output = output[:-1]

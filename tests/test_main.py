@@ -73,27 +73,25 @@ class TestMarkdownOutputGenerator:
             (
                 [
                     dict(method='add_unordered_list_item',
-                         args=dict(text='This is a test list item')),
+                         args=dict(text='This is a test list item', indent=1)),
                     dict(method='add_horizontal_rule', args=dict(style='underscores')),
                     dict(method='add_unordered_list_item',
-                         args=dict(text='List item 2', style='minus')),
+                         args=dict(text='List item 2', indent=2, style='minus')),
                     dict(method='add_unordered_list_item',
                          args=dict(text='List item 3', style='plus')),
                 ],
-                '* This is a test list item\n___\n- List item 2\n+ List item 3\n'
+                '\t* This is a test list item\n___\n\t\t- List item 2\n+ List item 3\n'
             ),
-            (
-                [
-                    dict(method='add_ordered_list_item',
-                         args=dict(text='This is a test list item')),
-                    dict(method='add_horizontal_rule', args=dict(style='underscores')),
-                    dict(method='add_ordered_list_item',
-                         args=dict(text='List item 2', index=2)),
-                    dict(method='add_ordered_list_item',
-                         args=dict(text='List item 3', index=5)),
-                ],
-                '1. This is a test list item\n___\n2. List item 2\n5. List item 3\n'
-            ),
+            # (
+            #     [
+            #         dict(method='add_ordered_list_item',
+            #              args=dict(text='Test item', index=4, indent=2)),
+            #         dict(method='add_horizontal_rule', args=dict(style='underscores')),
+            #         dict(method='add_ordered_list_item',
+            #              args=dict(text='Hello test string', indent=3))
+            #     ],
+            #     '\t\t4. Test item\n___\n3. Hello test string\n'
+            # ),
         )
     )
     def test_output_generator(self, input_dict, expected_output,

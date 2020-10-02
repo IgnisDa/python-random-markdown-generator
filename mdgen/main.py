@@ -38,12 +38,12 @@ class MarkdownOutputGenerator:
     def add_paragraph(self, text: str, paragraph_size: int = 79):
         self.final_output += self.markdowngen.new_paragraph(text, paragraph_size)
 
-    def add_unordered_list_item(self, text: str, style: str = 'asterisk'):
-        self.final_output += self.markdowngen.new_unordered_list_item(text, style)
+    def add_unordered_list_item(self, text: str, indent: int = 0, style: str = 'asterisk'):
+        self.final_output += self.markdowngen.new_unordered_list_item(text, indent, style)
         self.final_output += LINESEPARATOR
 
-    def add_ordered_list_item(self, text: str, index: int = 1):
-        self.final_output += self.markdowngen.new_ordered_list_item(text, index)
+    def add_ordered_list_item(self, text: str, indent: int = 0, index: int = 1):
+        self.final_output += self.markdowngen.new_ordered_list_item(text, indent, index)
         self.final_output += LINESEPARATOR
 
     def add_unordered_list(self, list_items_list: list, style: str = 'asterisk',
