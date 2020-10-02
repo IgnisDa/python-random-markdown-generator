@@ -219,11 +219,11 @@ class MarkdownGenerator:
         Returns a markdown list of ordered list. `list_items_list` must be a
         list of lists (or tuples).
 
-        .. code-block:: python
+        # .. code-block:: python
 
-            >>> m = MarkdownGenerator()
-            >>> m.new_ordered_list([('hello', 1, 3), 'hi', 'how do you do?', ('sup', 2)])
-            '\\t3. hello\\n1. hi\\n1. how do you do?\\n\\t\\t1. sup\\n'
+        #     >>> m = MarkdownGenerator()
+        #     >>> m.new_ordered_list([('hello', 1, 3), 'hi', 'how do you do?', ('sup', 2)])
+        #     '\\t3. hello\\n1. hi\\n1. how do you do?\\n\\t\\t1. sup\\n'
 
         """
         output = ''
