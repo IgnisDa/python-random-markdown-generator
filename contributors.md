@@ -4,3 +4,4 @@
 - [IgnisDa](https://github.com/IgnisDa/) (**Diptesh Choudhuri**) - _Initial work_
 - [parthpandyappp](https://github.com/parthpandyappp/) (**Parth Pandya**) -
   _Add checks: #3_
+- [shngt](https://github.com/shngt/) (**Shashank Gupta**) - _Added new\_code\_block: #5_
