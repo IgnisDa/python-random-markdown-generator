@@ -333,3 +333,17 @@ class TestMarkdownGeneratorExceptions:
         markdowngen = markdown_generator()
         with pytest.raises(expected_exception):
             markdowngen.new_unordered_list_item(text, indent, style)
+
+    @pytest.mark.parametrize(
+        'code, language, expected_output',
+        (
+            ('import os\nprint(os.cwd())', 'python',
+             '```python\nimport os\nprint(os.cwd())\n```'),
+            ('for x in range(10):\n\tprint(x)', 'python',
+             '```python\nfor x in range(10):\n\tprint(x)\n```')
+        )
+    )
+    def test_new_code_block(self, markdown_generator, code, language, expected_output):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_code_block(code, language)
+        assert output == expected_output

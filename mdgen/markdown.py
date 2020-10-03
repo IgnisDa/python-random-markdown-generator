@@ -5,7 +5,8 @@ from mdgen.core import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
                         MarkdownImageGenerator, MarkdownItalicGenerator,
                         MarkdownLinkGenerator, MarkdownListGenerator,
-                        MarkdownTableGenerator, MarkdownTextGenerator)
+                        MarkdownTableGenerator, MarkdownTextGenerator,
+                        MarkdownCodeGenerator)
 
 
 class MarkdownGenerator:
@@ -305,4 +306,20 @@ class MarkdownGenerator:
         """
         image = MarkdownImageGenerator()
         output = image.new_image(alt_text, image_url, image_title)
+        return output
+
+    def new_code_block(self, code: str, language: str = 'python'):
+        """
+        Returns a markdown code block. Valid languages for code formatting
+        at: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+
+        .. code-block:: python
+
+            >>> m = MarkdownGenerator()
+            >>> m.new_code_block("import os\\nprint(os.cwd())", language="python")
+            '```python\\nimport os\\nprint(os.cwd())\\n```'
+
+        """
+        code_block = MarkdownCodeGenerator()
+        output = code_block.new_code_block(code, language)
         return output
