@@ -141,19 +141,19 @@ class TestMarkdownGenerator:
         output = markdowngen.new_unordered_list_item(text, indent, style)
         assert output == expected_output
 
-    # @pytest.mark.parametrize(
-    #     'text, indent, index, expected_output',
-    #     (
-    #         ('this is a test list one', 1, 1, '\t1. this is a test list one'),
-    #         ('list item two', 2, 0, '\t\t2. list item two'),
-    #         ('part of ordered lists', 0, 2, '2. part of ordered lists'),
-    #     )
-    # )
-    # def test_new_ordered_list_item(self, text, index, indent, expected_output,
-    #                                markdown_generator):
-    #     markdowngen = markdown_generator()
-    #     output = markdowngen.new_ordered_list_item(text, index, indent)
-    #     assert output == expected_output
+    @pytest.mark.parametrize(
+        'text, indent, index, expected_output',
+        (
+            ('this is a test list one', 1, 1, '\t1. this is a test list one'),
+            ('list item two', 2, 0, '\t\t0. list item two'),
+            ('part of ordered lists', 0, 2, '2. part of ordered lists'),
+        )
+    )
+    def test_new_ordered_list_item(self, text, index, indent, expected_output,
+                                   markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_ordered_list_item(text,  indent, index)
+        assert output == expected_output
 
     @pytest.mark.parametrize(
         'list_items_list, style, linebreak, expected_output',
@@ -175,18 +175,18 @@ class TestMarkdownGenerator:
         output = markdowngen.new_unordered_list(list_items_list, style, linebreak)
         assert output == expected_output
 
-    # @pytest.mark.parametrize(
-    #     'list_items_list, linebreak, expected_output',
-    #     (
-    #         (['one', 'two', 'three'],  True, '1. one\n2. two\n3. three\n'),
-    #         (['one', 'two', 'three'],  False, '1. one\n2. two\n3. three'),
-    #     )
-    # )
-    # def test_new_ordered_list(self, list_items_list, linebreak,
-    #                           expected_output, markdown_generator):
-    #     markdowngen = markdown_generator()
-    #     output = markdowngen.new_ordered_list(list_items_list, linebreak)
-    #     assert output == expected_output
+    @pytest.mark.parametrize(
+        'list_items_list, linebreak, expected_output',
+        (
+            (['one', 'two', 'three'],  True, '1. one\n1. two\n1. three\n'),
+            (['one', 'two', 'three'],  False, '1. one\n1. two\n1. three'),
+        )
+    )
+    def test_new_ordered_list(self, list_items_list, linebreak,
+                              expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_ordered_list(list_items_list, linebreak)
+        assert output == expected_output
 
     @pytest.mark.parametrize(
         'list_items_list, expected_output',

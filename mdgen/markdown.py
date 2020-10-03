@@ -1,12 +1,12 @@
 from typing import List, Tuple
 
 from mdgen.constants import LINESEPARATOR
-from mdgen.core import (MarkdownBoldGenerator, MarkdownHeaderGenerator,
+from mdgen.core import (MarkdownBoldGenerator, MarkdownCodeGenerator,
+                        MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
                         MarkdownImageGenerator, MarkdownItalicGenerator,
                         MarkdownLinkGenerator, MarkdownListGenerator,
-                        MarkdownTableGenerator, MarkdownTextGenerator,
-                        MarkdownCodeGenerator)
+                        MarkdownTableGenerator, MarkdownTextGenerator)
 
 
 class MarkdownGenerator:
@@ -17,7 +17,7 @@ class MarkdownGenerator:
 
     def new_text(self, text: str):
         """
-        Returns the `text` as it is.
+        Returns the :code:`text` as it is.
 
         :param text: A string that will be returned as it is
 
@@ -37,6 +37,8 @@ class MarkdownGenerator:
         """
         Returns a new text line, and adds a linebreak to its end.
 
+        :param text: A string that will be returned with a linebreak appended
+
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
@@ -50,9 +52,14 @@ class MarkdownGenerator:
 
     def new_header(self, text: str, header_level: int = 1, linebreak=True, atx=True):
         """
-        Returns a markdown header, using `text` and `header_level`, adds a
+        Returns a markdown header, using :code:`text` and :code:`header_level`, adds a
         linebreak to it (default behavior can be changed using
-        `linebreak=False`). Smaller the `header_level`, larger the header.
+        `linebreak=False`). Smaller the :code:`header_level`, larger the header.
+
+        :param text: A string that will be used to create the header
+        :param header_level: Smaller the `header_level`, larger the header.
+        :param linebreak: If a linebreak would be added to the output
+        :param atx:  https://google.github.io/styleguide/docguide/style.html#headings
 
         .. code-block:: python
 
@@ -73,7 +80,9 @@ class MarkdownGenerator:
 
     def new_bold_text(self, text: str):
         """
-        Returns the `text` bolded.
+        Returns the :code:`text` bolded.
+
+        :param text: A string that will be returned as bold text
 
         .. code-block:: python
 
@@ -88,7 +97,9 @@ class MarkdownGenerator:
 
     def new_italic_text(self, text: str, underscore=True):
         """
-        Returns the `text` in italics.
+        Returns the :code:`text` in italics.
+
+        :param text: A string that will be returned as italic text
 
         .. code-block:: python
 
@@ -105,7 +116,7 @@ class MarkdownGenerator:
 
     def new_bold_and_italic_text(self, text: str, underscore=True):
         """
-        Returns the `text` bolded and italic.
+        Returns the :code:`text` bolded and italic.
 
         .. code-block:: python
 
@@ -141,7 +152,7 @@ class MarkdownGenerator:
     def new_paragraph(self, text: str, paragraph_size: int = 79):
         """
         Returns a markdown paragraph, each line formatted to contain
-        `paragraph_size` characters each. Defaults to 79.
+        :code:`paragraph_size` characters each. Defaults to 79.
 
         .. code-block:: python
 
@@ -157,7 +168,7 @@ class MarkdownGenerator:
     def new_unordered_list_item(self, text: str, indent: int = 0, style: str = 'asterisk'):
         """
         Returns a single unordered markdown list item. an asterisk will be
-        prepended by deafult, can be changed by passing `style` argument.
+        prepended by deafult, can be changed by passing :code:`style` argument.
 
         .. code-block:: python
 
@@ -173,26 +184,10 @@ class MarkdownGenerator:
         output = list_item.new_unordered_list_item(text, indent)
         return output
 
-    def new_ordered_list_item(self, text: str, indent: int = 0, index: int = 1):
-        """
-        Returns a single ordered markdown list item. `index` will be the
-        number prepended, and if not supplied, defaults to 1.
-
-        .. code-block:: python
-
-            >>> m = MarkdownGenerator()
-            >>> m.new_ordered_list_item('hello', indent=2)
-            '\\t\\t1. hello'
-
-        """
-        list_item = MarkdownListGenerator()
-        output = list_item.new_ordered_list_item(text, indent, index)
-        return output
-
     def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
                            linebreak: bool = True):
         """
-        Returns a markdown list of unordered list. `list_items_list` must be a
+        Returns a markdown list of unordered list. :code:`list_items_list` must be a
         list of lists (or tuples).
 
         .. code-block:: python
@@ -215,39 +210,55 @@ class MarkdownGenerator:
             output = output[:-1]
         return output
 
+    def new_ordered_list_item(self, text: str, indent: int = 0, index: int = 1):
+        """
+        Returns a single ordered markdown list item. :code:`index` will be the
+        number prepended, and if not supplied, defaults to 1.
+
+        .. code-block:: python
+
+            >>> m = MarkdownGenerator()
+            >>> m.new_ordered_list_item('hello', indent=2)
+            '\\t\\t1. hello'
+
+        """
+        list_item = MarkdownListGenerator()
+        output = list_item.new_ordered_list_item(text, indent, index)
+        return output
+
     def new_ordered_list(self, list_items_list: list, linebreak: bool = True):
         """
-        Returns a markdown list of ordered list. `list_items_list` must be a
+        Returns a markdown list of ordered list. :code:`list_items_list` must be a
         list of lists (or tuples).
 
-        # .. code-block:: python
+        .. code-block:: python
 
-        #     >>> m = MarkdownGenerator()
-        #     >>> m.new_ordered_list([('hello', 1, 3), 'hi', 'how do you do?', ('sup', 2)])
-        #     '\\t3. hello\\n1. hi\\n1. how do you do?\\n\\t\\t1. sup\\n'
+            >>> m = MarkdownGenerator()
+            >>> m.new_ordered_list([('hello', 1, 3), 'hi', 'how do you do?', ('sup', 2)])
+            '\\t3. hello\\n1. hi\\n1. how do you do?\\n\\t\\t1. sup\\n'
 
         """
         output = ''
-        for index, list_item in enumerate(list_items_list, 1):
-            if isinstance(list_item, List) or isinstance(list_item, Tuple):
-                text, indent = list_item
-                output += self.new_ordered_list_item(list_item, indent, index)
+        for list_item in list_items_list:
+            if isinstance(list_item, (List, Tuple)):
+                output += f"{self.new_ordered_list_item(*list_item)}{LINESEPARATOR}"
             else:
-                output += self.new_ordered_list_item(list_item, index)
-            output += LINESEPARATOR
+                output += f"{self.new_ordered_list_item(list_item)}{LINESEPARATOR}"
         if not linebreak:
             output = output[:-1]
         return output
 
     def new_table(self, list_items_list: list):
         """
-        Returns a markdown table. `list_items_list` must be a list of list
+        Returns a markdown table. :code:`list_items_list` must be a list of list
         (or tuples).
 
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
-            >>> m.new_table([['hello', 'hi', 'how do you do?'], ['1', '2', '3', '4']])
+            >>> table_data = [['hello', 'hi', 'how do you do?'], ['1', '2', '3', '4']]
+            >>> markdown_table = m.new_table(table_data)
+            >>> markdown_table
             '|hello|hi|how do you do?|\\n|-----|--|--------------|\\n|1|2|3|4|\\n'
 
         """
@@ -258,7 +269,7 @@ class MarkdownGenerator:
     def new_link(self, link_text: str, link_url: str = '', linebreak: bool = False):
         """
         Returns a markdown link which can be used to link external websites, or
-        even internal ones. If `link_url` is not provided, an empty link is
+        even internal ones. If :code:`link_url` is not provided, an empty link is
         returned.
 
         .. code-block:: python
@@ -275,7 +286,7 @@ class MarkdownGenerator:
         return output
 
     def new_comment(self, comment_text: str):
-        """ Returns the `comment_text` within markdown comment blocks.
+        """ Returns the :code:`comment_text` within markdown comment blocks.
 
         .. code-block:: python
 
@@ -291,7 +302,7 @@ class MarkdownGenerator:
     def new_image(self, alt_text: str, image_url: str, image_title: str = ''):
         """
         Returns a markdown link which can be used to link external websites, or
-        even internal ones. If `link_url` is not provided, an empty link is
+        even internal ones. If :code:`link_url` is not provided, an empty link is
         returned.
 
         .. code-block:: python
@@ -300,7 +311,7 @@ class MarkdownGenerator:
             >>> m.new_image('image one', 'http://example.org/?image=one')
             '![image one](http://example.org/?image=one)'
             >>> m.new_image('image two', 'http://example.org/?image=second',
-            ...   'The 2nd image')
+            ... 'The 2nd image')
             '![image two](http://example.org/?image=second "The 2nd image")'
 
         """
@@ -313,11 +324,22 @@ class MarkdownGenerator:
         Returns a markdown code block. Valid languages for code formatting
         at: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
+        :param code: A string containing the code-block to be added
+        :param language: The language that the code-block will use
+
         .. code-block:: python
 
             >>> m = MarkdownGenerator()
-            >>> m.new_code_block("import os\\nprint(os.cwd())", language="python")
-            '```python\\nimport os\\nprint(os.cwd())\\n```'
+            >>> code = \"\"\"\\
+            ... import os
+            ... print(os.cwd())\\
+            ... \"\"\"
+            >>> output = m.new_code_block(code, language="python")
+            >>> print(output)
+            ```python
+            import os
+            print(os.cwd())
+            ```
 
         """
         code_block = MarkdownCodeGenerator()
