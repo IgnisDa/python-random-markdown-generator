@@ -1,6 +1,7 @@
 class MarkdownBlockQuoteGenerator:
 
-    """ This class converts an input string into a markdown blockquote by adding '>' in the beginning
+    """ This class converts an input string into a markdown 
+    blockquote by adding '>' in the beginning
     of the string """
 
     def new_blockquote(self, quote: str):
