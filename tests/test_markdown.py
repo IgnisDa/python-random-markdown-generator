@@ -337,8 +337,8 @@ class TestMarkdownGeneratorExceptions:
     @pytest.mark.parametrize(
         'code, language, expected_output',
         (
-            ('import os\nprint(os.cwd())', 'python',
-             '```python\nimport os\nprint(os.cwd())\n```'),
+            ('import os\nprint(os.uname())', 'python',
+             '```python\nimport os\nprint(os.uname())\n```'),
             ('for x in range(10):\n\tprint(x)', 'python',
              '```python\nfor x in range(10):\n\tprint(x)\n```')
         )

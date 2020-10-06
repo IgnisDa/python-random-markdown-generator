@@ -1,5 +1,6 @@
 [run]
-omit =  **.vscode**
-        .tox
-        **.cache**
-        docs/
+omit =
+    **.vscode**
+    .tox
+    **.cache**
+    docs/

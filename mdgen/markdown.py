@@ -1,8 +1,8 @@
 from typing import List, Tuple
 
 from mdgen.constants import LINESEPARATOR
-from mdgen.core import (MarkdownBoldGenerator, MarkdownCodeGenerator,
-                        MarkdownHeaderGenerator,
+from mdgen.core import (MarkdownBlockQuoteGenerator, MarkdownBoldGenerator,
+                        MarkdownCodeGenerator, MarkdownHeaderGenerator,
                         MarkdownHorizontalRuleGenerator,
                         MarkdownImageGenerator, MarkdownItalicGenerator,
                         MarkdownLinkGenerator, MarkdownListGenerator,
@@ -179,7 +179,7 @@ class MarkdownGenerator:
         """
         permitted_styles = ['asterisk', 'plus', 'minus']
         if style not in permitted_styles:
-            raise AttributeError(f"`style` must be among {permitted_styles}")
+            raise AttributeError(f"`{style = }` must be among {permitted_styles}")
         list_item = MarkdownListGenerator(style)
         output = list_item.new_unordered_list_item(text, indent)
         return output
@@ -195,13 +195,15 @@ class MarkdownGenerator:
             >>> m = MarkdownGenerator()
             >>> m.new_unordered_list(['hello', 'hi', 'how do you do?', ('sup', 2)])
             '* hello\\n* hi\\n* how do you do?\\n\\t\\t* sup\\n'
+            >>> m.new_unordered_list([('hello', 1), 'hi', 'how do you do?', ('sup', 2)])
+            '\\t* hello\\n* hi\\n* how do you do?\\n\\t\\t* sup\\n'
 
         """
+
         output = ''
         for list_item in list_items_list:
-            if isinstance(list_item, List) or isinstance(list_item, Tuple):
-                text, indent = list_item
-                output += (f"{self.new_unordered_list_item(text, indent, style=style)}"
+            if isinstance(list_item, (List, Tuple)):
+                output += (f"{self.new_unordered_list_item(*list_item, style=style)}"
                            f"{LINESEPARATOR}")
             else:
                 output += (f"{self.new_unordered_list_item(list_item, style=style)}"
@@ -324,7 +326,7 @@ class MarkdownGenerator:
         Returns a markdown code block. Valid languages for code formatting
         at: https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 
-        :param code: A string containing the code-block to be added
+        :param code: A string containing the code-block to be generated
         :param language: The language that the code-block will use
 
         .. code-block:: python
@@ -332,16 +334,33 @@ class MarkdownGenerator:
             >>> m = MarkdownGenerator()
             >>> code = \"\"\"\\
             ... import os
-            ... print(os.cwd())\\
+            ... print(os.uname())\\
             ... \"\"\"
             >>> output = m.new_code_block(code, language="python")
             >>> print(output)
             ```python
             import os
-            print(os.cwd())
+            print(os.uname())
             ```
 
         """
         code_block = MarkdownCodeGenerator()
         output = code_block.new_code_block(code, language)
+        return output
+
+    def new_blockquote(self, quote: str):
+        """
+        Returns a markdown blockquote.
+
+        :param quote: A string containing the quote to be generated
+
+        .. code-block:: python
+
+            >>> m = MarkdownGenerator()
+            >>> m.new_blockquote('What the heck guys???')
+            '> What the heck guys???'
+
+        """
+        quote_to_add = MarkdownBlockQuoteGenerator()
+        output = quote_to_add.new_blockquote(quote)
         return output
