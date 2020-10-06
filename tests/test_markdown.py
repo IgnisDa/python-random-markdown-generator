@@ -263,6 +263,17 @@ class TestMarkdownGenerator:
         output = markdowngen.new_image(alt_text, image_url, image_title)
         assert output == expected_output
 
+    @pytest.mark.parametrize(
+        'expected_output',
+        (
+            '\n',
+        )
+    )
+    def test_new_line(self, expected_output, markdown_generator):
+        markdowngen = markdown_generator()
+        output = markdowngen.new_linebreak()
+        assert output == expected_output
+
 
 class TestMarkdownGeneratorExceptions:
 

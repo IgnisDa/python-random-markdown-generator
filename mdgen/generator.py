@@ -8,6 +8,18 @@ from mdgen.main import MarkdownOutputGenerator
 _fake = Faker()
 
 
+def create_list_items_list_for_table():
+    return_list = []
+    nb = 3
+    for _ in range(5):
+        return_list.append(_fake.sentences(nb))
+    return return_list
+
+
+def create_list_items_list_for_list():
+    return _fake.sentences()
+
+
 class DataProvider:
 
     def __init__(self):
@@ -30,72 +42,79 @@ class DataProvider:
             code=_fake.paragraph(), language=_fake.word()
         )
 
-    # def random_comment(self):
-    #     output
-    #
+    def random_comment(self):
+        self.markdown_gen.add_comment(comment_text=_fake.sentence())
 
-    # def random_header(self):
-    #     output
-    #
+    def random_header(self):
+        self.markdown_gen.add_header(
+            text=_fake.sentence(), header_level=random.randint(1, 6),
+            atx=_fake.boolean(), linebreak=_fake.boolean()
+        )
 
-    # def random_horizontal_rule(self):
-    #     output
-    #
+    def random_horizontal_rule(self):
+        permitted_styles = ['hyphens', 'asterisks', 'underscores']
+        self.markdown_gen.add_horizontal_rule(style=random.choice(permitted_styles))
 
-    # def random_image(self):
-    #     output
-    #
+    def random_image(self):
+        self.markdown_gen.add_image(
+            alt_text=_fake.sentence(), image_url=_fake.url(), image_title=_fake.text()
+        )
 
-    # def random_italic_text(self):
-    #     output
-    #
+    def random_italic_text(self):
+        self.markdown_gen.add_italic_text(
+            text=_fake.sentence(), underscore=_fake.boolean()
+        )
 
-    # def random_link(self):
-    #     output
-    #
+    def random_link(self):
+        self.markdown_gen.add_link(
+            link_text=_fake.sentence(), link_url=_fake.url(), linebreak=_fake.boolean()
+        )
 
-    # def random_ordered_list(self):
-    #     output
-    #
+    def random_ordered_list(self):
+        self.markdown_gen.add_ordered_list(
+            list_items_list=create_list_items_list_for_list(), linebreak=_fake.boolean()
+        )
 
-    # def random_ordered_list_item(self):
-    #     output
-    #
+    def random_ordered_list_item(self):
+        self.markdown_gen.add_ordered_list_item(
+            text=_fake.sentence(), indent=_fake.boolean(), index=random.randint(1, 10)
+        )
 
-    # def random_paragraph(self):
-    #     output
-    #
+    def random_paragraph(self):
+        self.markdown_gen.add_paragraph(
+            text=_fake.paragraph(), paragraph_size=random.randint(60, 100)
+        )
 
-    # def random_table(self):
-    #     output
-    #
+    def random_table(self):
+        self.markdown_gen.add_table(list_items_list=create_list_items_list_for_table())
 
-    # def random_text(self):
-    #     output
-    #
+    def random_text(self):
+        self.markdown_gen.add_text(text=_fake.word())
 
-    # def random_text_line(self):
-    #     output
-    #
+    def random_text_line(self):
+        self.markdown_gen.add_text_line(text=_fake.sentence())
 
-    # def random_unordered_list(self):
-    #     output
-    #
+    def random_unordered_list(self):
+        self.markdown_gen.add_ordered_list(
+            list_items_list=create_list_items_list_for_list(), linebreak=_fake.boolean()
+        )
 
-    # def random_unordered_list_item(self):
-    #     output
-    #
+    def random_unordered_list_item(self):
+        permitted_styles = ['asterisk', 'plus', 'minus']
+        self.markdown_gen.add_unordered_list_item(
+            text=_fake.sentence(), indent=random.randint(1, 4),
+            style=random.choice(permitted_styles)
+        )
 
-    def generate(self):
-        members = inspect.getmembers(DataProvider, predicate=inspect.isfunction)
-        eligible = [method for member, method in members if member.startswith('random')]
-        random.shuffle(eligible)
-        return eligible
+    def get_output_text(self):
+        return self.markdown_gen.get_output_text()
+
+    def insert_lineseparator_to_output(self):
+        self.markdown_gen.add_linebreak()
 
 
-if __name__ == "__main__":
-    m = DataProvider()
-    x = m.generate()
-    for i in x:
-        i(m)
-    print(m.markdown_gen.get_output_text())
+def generate():
+    members = inspect.getmembers(DataProvider, predicate=inspect.isfunction)
+    eligible = [member for member, method in members if member.startswith('random')]
+    eligible = random.choice(eligible)
+    return eligible

@@ -7,6 +7,9 @@ class MarkdownOutputGenerator(MarkdownGenerator):
     def __init__(self):
         self.final_output = ''
 
+    def add_linebreak(self):
+        self.final_output += self.new_linebreak()
+
     def get_output_text(self):
         return self.final_output
 

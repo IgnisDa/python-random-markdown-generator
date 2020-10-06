@@ -15,6 +15,12 @@ class MarkdownGenerator:
     You probably don't want to use this class, unless you are extending
     it somehow. """
 
+    def new_linebreak(self):
+        """ Just returns a new line separator which can be
+        used for linebreaks. """
+        output = LINESEPARATOR
+        return output
+
     def new_text(self, text: str):
         """
         Returns the :code:`text` as it is.

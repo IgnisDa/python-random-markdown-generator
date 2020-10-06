@@ -15,6 +15,14 @@ class TestMarkdownOutputGenerator:
             ),
             (
                 [
+                    dict(method='add_text', args=dict(text='hello')),
+                    dict(method='add_linebreak', args=dict()),
+                    dict(method='add_text_line', args=dict(text='hello2')),
+                ],
+                'hello\nhello2\n'
+            ),
+            (
+                [
                     dict(
                         method='add_header',
                         args=dict(text='hello-header', header_level=1,
