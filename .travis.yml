@@ -15,8 +15,7 @@ script:
   - tox
   - make -C docs/ html
   - touch docs/_build/html/.nojekyll
-  - if [[ ${TRAVIS_PYTHON_VERSION} == "3.8.5" ]]; then coverage run --source
-  mdgen -m pytest && coverage report -m && coveralls; fi
+  - if [[ ${TRAVIS_PYTHON_VERSION} == "3.8.5" ]]; then coverage run --source mdgen -m pytest && coverage report -m && coveralls; fi
 
 before_deploy:
   - poetry config repositories.testpypi https://test.pypi.org/legacy/
