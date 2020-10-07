@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tutorials to use this package &mdash; mdgen 0.1.4 documentation</title>
+  <title>Tutorials to use this package &mdash; mdgen 0.1.5 documentation</title>
   
 
   
@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using mdgen in your projects" href="examples.html" />
     <link rel="prev" title="The Core Markdown Generator" href="markdown.html" /> 
 </head>
 
@@ -85,9 +86,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">The Core Markdown Generator</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials to use this package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-lists-using-markdownoutputgenerator">Creating lists using <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-lists-using-markdownoutputgenerator">Creating lists using <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#to-create-a-single-unordered-list-item">To create a single unordered list item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#to-create-an-unordered-list">To create an unordered list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#to-create-a-single-ordered-list-item">To create a single ordered list item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#to-create-an-ordered-list">To create an ordered list</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Using mdgen in your projects</a></li>
 </ul>
 
             
@@ -161,10 +169,51 @@
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_unordered_list_item()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_ordered_list_item()</span></code>,
 <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_unordered_list()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_ordered_list()</span></code> method to add lists
 and list items to your generated markdown.</p>
+<p>Make sure you import the correct components and initialize them:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mdgen</span> <span class="kn">import</span> <span class="n">MarkdownOutputGenerator</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span> <span class="o">=</span> <span class="n">MarkdownOutputGenerator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_unordered_list_item</span><span class="p">(</span><span class="s1">&#39;test unordered list&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="section" id="to-create-a-single-unordered-list-item">
+<h3>To create a single unordered list item<a class="headerlink" href="#to-create-a-single-unordered-list-item" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_unordered_list_item</span><span class="p">(</span><span class="s1">&#39;test unordered list&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;* test unordered list\n&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-create-an-unordered-list">
+<h3>To create an unordered list<a class="headerlink" href="#to-create-an-unordered-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_unordered_list</span><span class="p">([</span><span class="s1">&#39;list item one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span> <span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span>
+<span class="gp">... </span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;plus&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;+ list item one\n+ two\n+ three\n&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-create-a-single-ordered-list-item">
+<h3>To create a single ordered list item<a class="headerlink" href="#to-create-a-single-ordered-list-item" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_ordered_list_item</span><span class="p">(</span><span class="s1">&#39;test ordered list&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;\t\t3. test ordered list\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_ordered_list_item</span><span class="p">(</span><span class="s1">&#39;test ordered list&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;\t\t3. test ordered list\n1. test ordered list\n&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-create-an-ordered-list">
+<h3>To create an ordered list<a class="headerlink" href="#to-create-an-ordered-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_ordered_list</span><span class="p">([</span><span class="s1">&#39;list item one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span> <span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;1. list item one\n1. two\n1. three\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_ordered_list</span><span class="p">([</span><span class="s1">&#39;list item one&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="p">,</span> <span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">get_output_text</span><span class="p">()</span>
+<span class="go">&#39;1. list item one\n1. two\n1. three\n1. list item one\n\t\t\t1. two\n\t\t1. three\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># function usage: .add_ordered_list([(&#39;item1&#39;, int: indent, int: index), (&#39;item2&#39;, int: indent, int: index) ...])</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -176,6 +225,8 @@ and list items to your generated markdown.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="Using mdgen in your projects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="markdown.html" class="btn btn-neutral float-left" title="The Core Markdown Generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

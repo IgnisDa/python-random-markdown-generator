@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; mdgen 0.1.4 documentation</title>
+  <title>Using mdgen in your projects &mdash; mdgen 0.1.5 documentation</title>
   
 
   
@@ -35,7 +35,8 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Tutorials to use this package" href="tutorials.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,9 +82,14 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">The Core Markdown Generator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials to use this package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using mdgen in your projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-in-django">Implementation in django</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-in-flask">Implementation in flask</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -130,7 +136,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Using mdgen in your projects</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -149,12 +155,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  
+  <div class="section" id="using-mdgen-in-your-projects">
+<h1>Using mdgen in your projects<a class="headerlink" href="#using-mdgen-in-your-projects" title="Permalink to this headline">¶</a></h1>
+<p>Initially this project was conceived since I needed to populate my
+<a class="reference external" href="https://www.djangoproject.com/">django</a> models with fake data. Here’s
+implementation using both django and
+<a class="reference external" href="https://flask.palletsprojects.com/en/1.1.x/">flask</a>.</p>
+<div class="section" id="implementation-in-django">
+<h2>Implementation in django<a class="headerlink" href="#implementation-in-django" title="Permalink to this headline">¶</a></h2>
+<p>We will create a <a class="reference external" href="https://docs.djangoproject.com/en/3.1/howto/custom-management-commands/">management command</a>
+which will let us create a model instance using <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span>
+<span class="pre">createdata</span></code> and insert fake markdown data into it.</p>
+<p><strong>my_app/models.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">MarkdownPost</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">created_on</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_add_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>my_app/management/createdata.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span>
+<span class="kn">from</span> <span class="nn">my_app.models</span> <span class="kn">import</span> <span class="n">MarkdownPost</span>
+<span class="kn">from</span> <span class="nn">mdgen</span> <span class="kn">import</span> <span class="n">MarkdownPostProvider</span>
+
+<span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">()</span>
+<span class="n">fake</span><span class="o">.</span><span class="n">add_provider</span><span class="p">(</span><span class="n">MarkdownPostProvider</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+        <span class="n">MarkdownPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">fake</span><span class="o">.</span><span class="n">post</span><span class="p">()</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+<p>You can then invoke this command using <code class="code docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span>
+<span class="pre">createdata</span></code>.</p>
+</div>
+<div class="section" id="implementation-in-flask">
+<h2>Implementation in flask<a class="headerlink" href="#implementation-in-flask" title="Permalink to this headline">¶</a></h2>
+<p><strong>WORK IN PROGRESS</strong></p>
+</div>
+</div>
+
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials to use this package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

@@ -5,8 +5,9 @@ Welcome to mdgen's documentation!
     :maxdepth: 2
     :caption: Contents:
 
-    markdown
-    tutorials
+    markdown.rst
+    tutorials.rst
+    examples.rst
 
 
 Indices and tables
