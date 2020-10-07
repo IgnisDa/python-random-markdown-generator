@@ -16,8 +16,17 @@ class MarkdownGenerator:
     it somehow. """
 
     def new_linebreak(self):
-        """ Just returns a new line separator which can be
-        used for linebreaks. """
+        """
+        Just returns a new line separator which can be
+        used for linebreaks.
+
+        .. code-block:: python
+
+            >>> m = MarkdownGenerator()
+            >>> m.new_linebreak()
+            '\\n'
+
+        """
         output = LINESEPARATOR
         return output
 
@@ -132,7 +141,7 @@ class MarkdownGenerator:
 
         """
         if not isinstance(underscore, (bool,)):
-            raise AttributeError(f"`underscore` must be an instance of or {bool}")
+            raise AttributeError(f"`underscore` must be an instance of {bool}")
         bolded = self.new_bold_text(text)
         bolded_and_italic = self.new_italic_text(bolded, underscore)
         return bolded_and_italic
@@ -150,7 +159,7 @@ class MarkdownGenerator:
         """
         permitted_styles = ['hyphens', 'asterisks', 'underscores']
         if style not in permitted_styles:
-            raise AttributeError(f"`style` must be among {permitted_styles}")
+            raise AttributeError(f"{style} must be among {permitted_styles}")
         horizontal_rule = MarkdownHorizontalRuleGenerator()
         output = horizontal_rule.new_horizontal_rule(style)
         return output
@@ -185,7 +194,7 @@ class MarkdownGenerator:
         """
         permitted_styles = ['asterisk', 'plus', 'minus']
         if style not in permitted_styles:
-            raise AttributeError(f"`{style = }` must be among {permitted_styles}")
+            raise AttributeError(f"`{style}` must be among {permitted_styles}")
         list_item = MarkdownListGenerator(style)
         output = list_item.new_unordered_list_item(text, indent)
         return output

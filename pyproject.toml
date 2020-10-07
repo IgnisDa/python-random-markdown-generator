@@ -1,14 +1,21 @@
 [tool.poetry]
 name = "mdgen"
-version = "0.1.3"
+version = "0.1.4"
 description = "A library to generate random markdown text"
 authors = ["IgnisDa <ignisda2002@gmail.com>"]
 maintainers = ["IgnisDa <ignisda2002@gmail.com>"]
 license = "Apache-2.0"
 readme = "README.md"
-homepage = ""
+homepage = "https://ignisda.github.io/python-random-markdown-generator/"
 repository = "https://github.com/IgnisDa/python-random-markdown-generator/"
-keywords = []
+keywords = ["fake-data", "faker", "markdown", "posts"]
+classifiers = [
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "License :: OSI Approved :: Apache-2.0 License",
+    "Operating System :: OS Independent",
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -24,9 +31,6 @@ pytest-cov = "^2.10.1"
 tox = "^3.20.0"
 sphinx = "^3.2.1"
 sphinx-rtd-theme = "^0.5.0"
-
-[tool.poetry.scripts]
-# hello = "mdgen.cli:main"
 
 [build-system]
 requires = ["poetry>=0.12"]

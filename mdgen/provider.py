@@ -10,7 +10,7 @@ class MarkdownPostProvider(BaseProvider):
         try:
             num_methods_to_add = allowed_sizes[size]
         except KeyError:
-            raise ValueError(f"`{size = }` not among {list(allowed_sizes.keys())}")
+            raise ValueError(f"`{size}` not among {list(allowed_sizes.keys())}")
         data_generator = DataProvider()
         for num in range(num_methods_to_add):
             generated_method = generate()
@@ -18,11 +18,3 @@ class MarkdownPostProvider(BaseProvider):
             data_generator.insert_lineseparator_to_output()
 
         return data_generator.get_output_text()
-
-
-if __name__ == "__main__":
-    from faker import Faker
-    fake = Faker()
-    fake.add_provider(MarkdownPostProvider)
-    for x in range(100):
-        print(fake.post(size='large'))
