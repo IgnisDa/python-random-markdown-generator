@@ -31,5 +31,4 @@ class MarkdownTextGenerator:
         return output
 
     def new_comment(self, comment_text: str):
-        output = f"{MARKDOWN_COMMENT_OPEN} {comment_text} {MARKDOWN_COMMENT_CLOSE}"
-        return output
+        return f"{MARKDOWN_COMMENT_OPEN} {comment_text} {MARKDOWN_COMMENT_CLOSE}"

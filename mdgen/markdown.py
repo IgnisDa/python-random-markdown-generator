@@ -27,8 +27,7 @@ class MarkdownGenerator:
             '\\n'
 
         """
-        output = LINESEPARATOR
-        return output
+        return LINESEPARATOR
 
     def new_text(self, text: str):
         """
@@ -45,8 +44,7 @@ class MarkdownGenerator:
         """
 
         text_output = MarkdownTextGenerator()
-        output = text_output.new_text(text)
-        return output
+        return text_output.new_text(text)
 
     def new_text_line(self, text: str):
         """
@@ -62,8 +60,7 @@ class MarkdownGenerator:
 
         """
         text_line = MarkdownTextGenerator()
-        output = text_line.new_text_line(text)
-        return output
+        return text_line.new_text_line(text)
 
     def new_header(self, text: str, header_level: int = 1, linebreak=True, atx=True):
         """
@@ -90,8 +87,7 @@ class MarkdownGenerator:
         if not isinstance(atx, (bool,)):
             raise AttributeError(f"`atx` must be an instance of or {bool}")
         header = MarkdownHeaderGenerator(atx)
-        output = header.new_header(text, header_level, linebreak)
-        return output
+        return header.new_header(text, header_level, linebreak)
 
     def new_bold_text(self, text: str):
         """
@@ -107,8 +103,7 @@ class MarkdownGenerator:
 
         """
         bold_text = MarkdownBoldGenerator()
-        output = bold_text.new_bold_text(text)
-        return output
+        return bold_text.new_bold_text(text)
 
     def new_italic_text(self, text: str, underscore=True):
         """
@@ -126,8 +121,7 @@ class MarkdownGenerator:
         if not isinstance(underscore, (bool,)):
             raise AttributeError(f"`underscore` must be an instance of or {bool}")
         italic_text = MarkdownItalicGenerator()
-        output = italic_text.new_italic_text(text, underscore)
-        return output
+        return italic_text.new_italic_text(text, underscore)
 
     def new_bold_and_italic_text(self, text: str, underscore=True):
         """
@@ -143,8 +137,7 @@ class MarkdownGenerator:
         if not isinstance(underscore, (bool,)):
             raise AttributeError(f"`underscore` must be an instance of {bool}")
         bolded = self.new_bold_text(text)
-        bolded_and_italic = self.new_italic_text(bolded, underscore)
-        return bolded_and_italic
+        return self.new_italic_text(bolded, underscore)
 
     def new_horizontal_rule(self, style: str = 'hyphens'):
         """
@@ -161,8 +154,7 @@ class MarkdownGenerator:
         if style not in permitted_styles:
             raise AttributeError(f"{style} must be among {permitted_styles}")
         horizontal_rule = MarkdownHorizontalRuleGenerator()
-        output = horizontal_rule.new_horizontal_rule(style)
-        return output
+        return horizontal_rule.new_horizontal_rule(style)
 
     def new_paragraph(self, text: str, paragraph_size: int = 79):
         """
@@ -177,8 +169,7 @@ class MarkdownGenerator:
 
         """
         paragraph = MarkdownTextGenerator(paragraph_size)
-        output = paragraph.new_paragraph(text)
-        return output
+        return paragraph.new_paragraph(text)
 
     def new_unordered_list_item(self, text: str, indent: int = 0, style: str = 'asterisk'):
         """
@@ -196,8 +187,7 @@ class MarkdownGenerator:
         if style not in permitted_styles:
             raise AttributeError(f"`{style}` must be among {permitted_styles}")
         list_item = MarkdownListGenerator(style)
-        output = list_item.new_unordered_list_item(text, indent)
-        return output
+        return list_item.new_unordered_list_item(text, indent)
 
     def new_unordered_list(self, list_items_list: list, style: str = 'asterisk',
                            linebreak: bool = True):
@@ -240,8 +230,7 @@ class MarkdownGenerator:
 
         """
         list_item = MarkdownListGenerator()
-        output = list_item.new_ordered_list_item(text, indent, index)
-        return output
+        return list_item.new_ordered_list_item(text, indent, index)
 
     def new_ordered_list(self, list_items_list: list, linebreak: bool = True):
         """
@@ -280,8 +269,7 @@ class MarkdownGenerator:
 
         """
         table = MarkdownTableGenerator()
-        output = table.new_table(list_items_list)
-        return output
+        return table.new_table(list_items_list)
 
     def new_link(self, link_text: str, link_url: str = '', linebreak: bool = False):
         """
@@ -299,8 +287,7 @@ class MarkdownGenerator:
 
         """
         link = MarkdownLinkGenerator()
-        output = link.new_link(link_text, link_url, linebreak)
-        return output
+        return link.new_link(link_text, link_url, linebreak)
 
     def new_comment(self, comment_text: str):
         """ Returns the :code:`comment_text` within markdown comment blocks.
@@ -313,8 +300,7 @@ class MarkdownGenerator:
 
         """
         comment_output = MarkdownTextGenerator()
-        output = comment_output.new_comment(comment_text)
-        return output
+        return comment_output.new_comment(comment_text)
 
     def new_image(self, alt_text: str, image_url: str, image_title: str = ''):
         """
@@ -333,8 +319,7 @@ class MarkdownGenerator:
 
         """
         image = MarkdownImageGenerator()
-        output = image.new_image(alt_text, image_url, image_title)
-        return output
+        return image.new_image(alt_text, image_url, image_title)
 
     def new_code_block(self, code: str, language: str = 'python'):
         """
@@ -360,8 +345,7 @@ class MarkdownGenerator:
 
         """
         code_block = MarkdownCodeGenerator()
-        output = code_block.new_code_block(code, language)
-        return output
+        return code_block.new_code_block(code, language)
 
     def new_blockquote(self, quote: str):
         """
@@ -377,5 +361,4 @@ class MarkdownGenerator:
 
         """
         quote_to_add = MarkdownBlockQuoteGenerator()
-        output = quote_to_add.new_blockquote(quote)
-        return output
+        return quote_to_add.new_blockquote(quote)

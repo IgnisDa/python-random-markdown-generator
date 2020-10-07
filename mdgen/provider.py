@@ -12,7 +12,7 @@ class MarkdownPostProvider(BaseProvider):
         except KeyError:
             raise ValueError(f"`{size}` not among {list(allowed_sizes.keys())}")
         data_generator = DataProvider()
-        for num in range(num_methods_to_add):
+        for _ in range(num_methods_to_add):
             generated_method = generate()
             getattr(data_generator, generated_method)()
             data_generator.insert_lineseparator_to_output()

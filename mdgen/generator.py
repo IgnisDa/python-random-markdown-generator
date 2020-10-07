@@ -9,11 +9,7 @@ _fake = Faker()
 
 
 def create_list_items_list_for_table():
-    return_list = []
-    nb = 3
-    for _ in range(5):
-        return_list.append(_fake.sentences(nb))
-    return return_list
+    return (_fake.sentences(3) for _ in range(5))
 
 
 def create_list_items_list_for_list():
