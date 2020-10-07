@@ -18,8 +18,6 @@ script:
   - if [[ ${TRAVIS_PYTHON_VERSION} == "3.8.5" ]]; then coverage run --source mdgen -m pytest && coverage report -m && coveralls; fi
 
 before_deploy:
-  - poetry config repositories.testpypi https://test.pypi.org/legacy/
-  - poetry config http-basic.testpypi $TESTPYPI_USERNAME $TESTPYPI_PASS
   - poetry config http-basic.pypi $PYPI_USERNAME $PYPI_PASS
   - poetry build
 
