@@ -1,5 +1,7 @@
 import pytest
-from mdgen import MarkdownGenerator, MarkdownOutputGenerator
+from faker import Faker
+from mdgen import (MarkdownGenerator, MarkdownOutputGenerator,
+                   MarkdownPostProvider)
 
 
 @pytest.fixture()
@@ -18,3 +20,14 @@ def markdown_output_generator():
         return MarkdownOutputGenerator(*args, **kwargs)
 
     return _markdown_output_generator
+
+
+@pytest.fixture()
+def fake_post_faker(faker):
+
+    def _fake_post_faker(*args, **kwargs):
+        fake = Faker()
+        fake.add_provider(MarkdownPostProvider)
+        return fake
+
+    return _fake_post_faker()
