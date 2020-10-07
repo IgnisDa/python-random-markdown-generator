@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; mdgen 0.1.4 documentation</title>
+  <title>Tutorials to use this package &mdash; mdgen 0.1.4 documentation</title>
   
 
   
@@ -20,7 +20,6 @@
   
 
   
-    
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -35,9 +34,9 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-    <script type="text/javascript" src="_static/searchtools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="The Core Markdown Generator" href="markdown.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -64,7 +63,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -83,9 +82,12 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">The Core Markdown Generator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials to use this package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials to use this package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#creating-lists-using-markdownoutputgenerator">Creating lists using <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code></a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -132,12 +134,14 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Tutorials to use this package</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/tutorials.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -149,23 +153,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="tutorials-to-use-this-package">
+<h1>Tutorials to use this package<a class="headerlink" href="#tutorials-to-use-this-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-lists-using-markdownoutputgenerator">
+<h2>Creating lists using <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code><a class="headerlink" href="#creating-lists-using-markdownoutputgenerator" title="Permalink to this headline">¶</a></h2>
+<p>An object of <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code> class provides
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_unordered_list_item()</span></code>, <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_ordered_list_item()</span></code>,
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">add_unordered_list()</span></code> and <code class="xref py py-meth docutils literal notranslate"><span class="pre">add_ordered_list()</span></code> method to add lists
+and list items to your generated markdown.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mdgen</span> <span class="kn">import</span> <span class="n">MarkdownOutputGenerator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span> <span class="o">=</span> <span class="n">MarkdownOutputGenerator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdowngen</span><span class="o">.</span><span class="n">add_unordered_list_item</span><span class="p">(</span><span class="s1">&#39;test unordered list&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="markdown.html" class="btn btn-neutral float-left" title="The Core Markdown Generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -205,14 +220,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

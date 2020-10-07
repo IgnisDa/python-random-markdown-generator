@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The Core Markdown Generator &mdash; mdgen 0.1.2 documentation</title>
+  <title>The Core Markdown Generator &mdash; mdgen 0.1.4 documentation</title>
   
 
   
@@ -36,6 +36,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials to use this package" href="tutorials.html" />
     <link rel="prev" title="Welcome to mdgen’s documentation!" href="index.html" /> 
 </head>
 
@@ -87,6 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#markdowngenerator-overview">MarkdownGenerator overview</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials to use this package</a></li>
 </ul>
 
             
@@ -152,23 +154,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-mdgen.markdown">
-<span id="the-core-markdown-generator"></span><h1>The Core Markdown Generator<a class="headerlink" href="#module-mdgen.markdown" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-core-markdown-generator">
+<h1>The Core Markdown Generator<a class="headerlink" href="#the-core-markdown-generator" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="markdowngenerator-overview">
 <h2>MarkdownGenerator overview<a class="headerlink" href="#markdowngenerator-overview" title="Permalink to this headline">¶</a></h2>
-<p>A <a class="reference internal" href="#mdgen.markdown.MarkdownGenerator" title="mdgen.markdown.MarkdownGenerator"><code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownGenerator</span></code></a> is a base class that all other valuable classes,
+<p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownGenerator</span></code> is a base class that all other valuable classes,
 such as <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownOutputGenerator</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">MarkdownPostGenerator</span></code> inherit from.</p>
 <p>Here’s what the <cite>MarkdownGenerator</cite> classes looks like:</p>
-<dl class="py class">
+<span class="target" id="module-mdgen.markdown"></span><dl class="py class">
 <dt id="mdgen.markdown.MarkdownGenerator">
 <em class="property">class </em><code class="sig-prename descclassname">mdgen.markdown.</code><code class="sig-name descname">MarkdownGenerator</code><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the core class that is used to generate markdown text.
 You probably don’t want to use this class, unless you are extending
 it somehow.</p>
 <dl class="py method">
+<dt id="mdgen.markdown.MarkdownGenerator.new_blockquote">
+<code class="sig-name descname">new_blockquote</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">quote</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_blockquote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a markdown blockquote.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>quote</strong> – A string containing the quote to be generated</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_blockquote</span><span class="p">(</span><span class="s1">&#39;What the heck guys???&#39;</span><span class="p">)</span>
+<span class="go">&#39;&gt; What the heck guys???&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_bold_and_italic_text">
 <code class="sig-name descname">new_bold_and_italic_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">underscore</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_bold_and_italic_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <cite>text</cite> bolded and italic.</p>
+<dd><p>Returns the <code class="code docutils literal notranslate"><span class="pre">text</span></code> bolded and italic.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_bold_and_italic_text</span><span class="p">(</span><span class="s1">&#39;This is a test&#39;</span><span class="p">)</span>
 <span class="go">&#39;_**This is a test**_&#39;</span>
@@ -179,7 +197,12 @@ it somehow.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_bold_text">
 <code class="sig-name descname">new_bold_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_bold_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <cite>text</cite> bolded.</p>
+<dd><p>Returns the <code class="code docutils literal notranslate"><span class="pre">text</span></code> bolded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> – A string that will be returned as bold text</p>
+</dd>
+</dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_bold_text</span><span class="p">(</span><span class="s1">&#39;This is a test&#39;</span><span class="p">)</span>
 <span class="go">&#39;**This is a test**&#39;</span>
@@ -188,9 +211,37 @@ it somehow.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="mdgen.markdown.MarkdownGenerator.new_code_block">
+<code class="sig-name descname">new_code_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">code</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">language</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'python'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_code_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a markdown code block. Valid languages for code formatting
+at: <a class="reference external" href="https://github.com/github/linguist/blob/master/lib/linguist/languages.yml">https://github.com/github/linguist/blob/master/lib/linguist/languages.yml</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> – A string containing the code-block to be generated</p></li>
+<li><p><strong>language</strong> – The language that the code-block will use</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
+<span class="gp">... </span><span class="s2">import os</span>
+<span class="gp">... </span><span class="s2">print(os.uname())</span><span class="se">\</span>
+<span class="gp">... </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">new_code_block</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+<span class="go">```python</span>
+<span class="go">import os</span>
+<span class="go">print(os.uname())</span>
+<span class="go">```</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_comment">
 <code class="sig-name descname">new_comment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">comment_text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_comment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <cite>comment_text</cite> within markdown comment blocks.</p>
+<dd><p>Returns the <code class="code docutils literal notranslate"><span class="pre">comment_text</span></code> within markdown comment blocks.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_comment</span><span class="p">(</span><span class="s1">&#39;This is a comment&#39;</span><span class="p">)</span>
 <span class="go">&#39;&lt;!-- This is a comment --&gt;&#39;</span>
@@ -201,9 +252,19 @@ it somehow.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_header">
 <code class="sig-name descname">new_header</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">header_level</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">linebreak</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">atx</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_header" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a markdown header, using <cite>text</cite> and <cite>header_level</cite>, adds a
+<dd><p>Returns a markdown header, using <code class="code docutils literal notranslate"><span class="pre">text</span></code> and <code class="code docutils literal notranslate"><span class="pre">header_level</span></code>, adds a
 linebreak to it (default behavior can be changed using
-<cite>linebreak=False</cite>). Smaller the <cite>header_level</cite>, larger the header.</p>
+<cite>linebreak=False</cite>). Smaller the <code class="code docutils literal notranslate"><span class="pre">header_level</span></code>, larger the header.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – A string that will be used to create the header</p></li>
+<li><p><strong>header_level</strong> – Smaller the <cite>header_level</cite>, larger the header.</p></li>
+<li><p><strong>linebreak</strong> – If a linebreak would be added to the output</p></li>
+<li><p><strong>atx</strong> – <a class="reference external" href="https://google.github.io/styleguide/docguide/style.html#headings">https://google.github.io/styleguide/docguide/style.html#headings</a></p></li>
+</ul>
+</dd>
+</dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_header</span><span class="p">(</span><span class="s1">&#39;This is a test header&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">&#39;## This is a test header\n&#39;</span>
@@ -226,13 +287,13 @@ linebreak to it (default behavior can be changed using
 <dt id="mdgen.markdown.MarkdownGenerator.new_image">
 <code class="sig-name descname">new_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alt_text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">image_url</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">image_title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a markdown link which can be used to link external websites, or
-even internal ones. If <cite>link_url</cite> is not provided, an empty link is
+even internal ones. If <code class="code docutils literal notranslate"><span class="pre">link_url</span></code> is not provided, an empty link is
 returned.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_image</span><span class="p">(</span><span class="s1">&#39;image one&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.org/?image=one&#39;</span><span class="p">)</span>
 <span class="go">&#39;![image one](http://example.org/?image=one)&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_image</span><span class="p">(</span><span class="s1">&#39;image two&#39;</span><span class="p">,</span> <span class="s1">&#39;http://example.org/?image=second&#39;</span><span class="p">,</span>
-<span class="gp">... </span>  <span class="s1">&#39;The 2nd image&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="s1">&#39;The 2nd image&#39;</span><span class="p">)</span>
 <span class="go">&#39;![image two](http://example.org/?image=second &quot;The 2nd image&quot;)&#39;</span>
 </pre></div>
 </div>
@@ -241,7 +302,12 @@ returned.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_italic_text">
 <code class="sig-name descname">new_italic_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">underscore</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_italic_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <cite>text</cite> in italics.</p>
+<dd><p>Returns the <code class="code docutils literal notranslate"><span class="pre">text</span></code> in italics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> – A string that will be returned as italic text</p>
+</dd>
+</dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_italic_text</span><span class="p">(</span><span class="s1">&#39;This is a test&#39;</span><span class="p">)</span>
 <span class="go">&#39;_This is a test_&#39;</span>
@@ -250,10 +316,22 @@ returned.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="mdgen.markdown.MarkdownGenerator.new_linebreak">
+<code class="sig-name descname">new_linebreak</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_linebreak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just returns a new line separator which can be
+used for linebreaks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_linebreak</span><span class="p">()</span>
+<span class="go">&#39;\n&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_link">
 <code class="sig-name descname">new_link</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">link_text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">link_url</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">linebreak</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_link" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a markdown link which can be used to link external websites, or
-even internal ones. If <cite>link_url</cite> is not provided, an empty link is
+even internal ones. If <code class="code docutils literal notranslate"><span class="pre">link_url</span></code> is not provided, an empty link is
 returned.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_link</span><span class="p">(</span><span class="s1">&#39;Visit this link&#39;</span><span class="p">)</span>
@@ -267,23 +345,23 @@ returned.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_ordered_list">
 <code class="sig-name descname">new_ordered_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_items_list</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">linebreak</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_ordered_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a markdown list of ordered list. <cite>list_items_list</cite> must be a
+<dd><p>Returns a markdown list of ordered list. <code class="code docutils literal notranslate"><span class="pre">list_items_list</span></code> must be a
 list of lists (or tuples).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_ordered_list</span><span class="p">([</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">])</span>
-<span class="go">&#39;1. hello\n2. hi\n3. how do you do?\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_ordered_list</span><span class="p">([(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;sup&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">&#39;\t3. hello\n1. hi\n1. how do you do?\n\t\t1. sup\n&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_ordered_list_item">
-<code class="sig-name descname">new_ordered_list_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_ordered_list_item" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a single ordered markdown list item. <cite>index</cite> will be the
+<code class="sig-name descname">new_ordered_list_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">indent</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_ordered_list_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a single ordered markdown list item. <code class="code docutils literal notranslate"><span class="pre">index</span></code> will be the
 number prepended, and if not supplied, defaults to 1.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_ordered_list_item</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
-<span class="go">&#39;1. hello&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_ordered_list_item</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">&#39;\t\t1. hello&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -292,7 +370,7 @@ number prepended, and if not supplied, defaults to 1.</p>
 <dt id="mdgen.markdown.MarkdownGenerator.new_paragraph">
 <code class="sig-name descname">new_paragraph</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">paragraph_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">79</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_paragraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a markdown paragraph, each line formatted to contain
-<cite>paragraph_size</cite> characters each. Defaults to 79.</p>
+<code class="code docutils literal notranslate"><span class="pre">paragraph_size</span></code> characters each. Defaults to 79.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_paragraph</span><span class="p">(</span><span class="s1">&#39;hello this is an epic paragraph&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="go">&#39;hello this is an \nepic paragraph \n&#39;</span>
@@ -303,10 +381,12 @@ number prepended, and if not supplied, defaults to 1.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_table">
 <code class="sig-name descname">new_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_items_list</span><span class="p">:</span> <span class="n">list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a markdown table. <cite>list_items_list</cite> must be a list of list
+<dd><p>Returns a markdown table. <code class="code docutils literal notranslate"><span class="pre">list_items_list</span></code> must be a list of list
 (or tuples).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_table</span><span class="p">([[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table_data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdown_table</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">new_table</span><span class="p">(</span><span class="n">table_data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">markdown_table</span>
 <span class="go">&#39;|hello|hi|how do you do?|\n|-----|--|--------------|\n|1|2|3|4|\n&#39;</span>
 </pre></div>
 </div>
@@ -315,7 +395,7 @@ number prepended, and if not supplied, defaults to 1.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_text">
 <code class="sig-name descname">new_text</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the <cite>text</cite> as it is.</p>
+<dd><p>Returns the <code class="code docutils literal notranslate"><span class="pre">text</span></code> as it is.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> – A string that will be returned as it is</p>
@@ -332,6 +412,11 @@ number prepended, and if not supplied, defaults to 1.</p>
 <dt id="mdgen.markdown.MarkdownGenerator.new_text_line">
 <code class="sig-name descname">new_text_line</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_text_line" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new text line, and adds a linebreak to its end.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> – A string that will be returned with a linebreak appended</p>
+</dd>
+</dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_text_line</span><span class="p">(</span><span class="s1">&#39;This is a test text line&#39;</span><span class="p">)</span>
 <span class="go">&#39;This is a test text line\n&#39;</span>
@@ -342,20 +427,22 @@ number prepended, and if not supplied, defaults to 1.</p>
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_unordered_list">
 <code class="sig-name descname">new_unordered_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_items_list</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">style</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'asterisk'</span></em>, <em class="sig-param"><span class="n">linebreak</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_unordered_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a markdown list of unordered list. <cite>list_items_list</cite> must be a
+<dd><p>Returns a markdown list of unordered list. <code class="code docutils literal notranslate"><span class="pre">list_items_list</span></code> must be a
 list of lists (or tuples).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_unordered_list</span><span class="p">([</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">])</span>
-<span class="go">&#39;* hello\n* hi\n* how do you do?\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_unordered_list</span><span class="p">([</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;sup&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">&#39;* hello\n* hi\n* how do you do?\n\t\t* sup\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_unordered_list</span><span class="p">([(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;how do you do?&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;sup&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">&#39;\t* hello\n* hi\n* how do you do?\n\t\t* sup\n&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="mdgen.markdown.MarkdownGenerator.new_unordered_list_item">
-<code class="sig-name descname">new_unordered_list_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">style</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'asterisk'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_unordered_list_item" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">new_unordered_list_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">indent</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">style</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'asterisk'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mdgen.markdown.MarkdownGenerator.new_unordered_list_item" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a single unordered markdown list item. an asterisk will be
-prepended by deafult, can be changed by passing <cite>style</cite> argument.</p>
+prepended by deafult, can be changed by passing <code class="code docutils literal notranslate"><span class="pre">style</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">MarkdownGenerator</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">new_unordered_list_item</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>
 <span class="go">&#39;* hello&#39;</span>
@@ -375,6 +462,8 @@ prepended by deafult, can be changed by passing <cite>style</cite> argument.</p>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials to use this package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to mdgen’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

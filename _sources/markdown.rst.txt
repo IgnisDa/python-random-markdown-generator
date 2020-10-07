@@ -1,8 +1,6 @@
 The Core Markdown Generator
 ===========================
 
-.. automodule:: mdgen.markdown
-
 MarkdownGenerator overview
 --------------------------
 
@@ -11,5 +9,5 @@ such as :class:`MarkdownOutputGenerator` and :class:`MarkdownPostGenerator` inhe
 
 Here's what the `MarkdownGenerator` classes looks like:
 
-.. autoclass:: MarkdownGenerator
+.. automodule:: mdgen.markdown
     :members:

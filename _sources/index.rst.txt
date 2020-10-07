@@ -6,6 +6,7 @@ Welcome to mdgen's documentation!
     :caption: Contents:
 
     markdown
+    tutorials
 
 
 Indices and tables
