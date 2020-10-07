@@ -52,7 +52,6 @@ class MarkdownOutputGenerator(MarkdownGenerator):
 
     def add_unordered_list(self, list_items_list: list, style: str = 'asterisk',
                            linebreak: bool = True):
-        print(list_items_list, style, linebreak)
         self.final_output += self.new_unordered_list(
             list_items_list, style, linebreak
         )
