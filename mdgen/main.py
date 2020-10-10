@@ -4,8 +4,9 @@ from mdgen.markdown import MarkdownGenerator
 
 class MarkdownOutputGenerator(MarkdownGenerator):
 
-    def __init__(self):
+    def __init__(self, filepath='output.md'):
         self.final_output = ''
+        self.md_file = filepath
 
     def add_linebreak(self):
         self.final_output += self.new_linebreak()
@@ -86,3 +87,8 @@ class MarkdownOutputGenerator(MarkdownGenerator):
     def add_blockquote(self, quote: str):
         self.final_output += self.new_blockquote(quote)
         self.final_output += LINESEPARATOR
+
+    def create_file_from_output(self, filepath='output.md'):
+        self.md_file = filepath
+        with open(self.md_file, 'w') as md_file:
+            md_file.write(self.get_output_text())

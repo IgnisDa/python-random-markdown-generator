@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 
@@ -214,3 +216,13 @@ class TestMarkdownOutputGenerator:
             func(**data['args'])
         output = markdownoutputgen.get_output_text()
         assert output == expected_output
+
+    def test_output_file_created(self, markdown_output_generator):
+        markdownoutputgen = markdown_output_generator()
+        markdownoutputgen.add_comment('This is a comment')
+        expected_output = '<!-- This is a comment -->\n'
+        output = markdownoutputgen.get_output_text()
+        assert output == expected_output
+        markdownoutputgen.create_file_from_output('file.md')
+        assert os.path.exists(markdownoutputgen.md_file)
+        os.remove(markdownoutputgen.md_file)
