@@ -5,6 +5,7 @@ Welcome to mdgen's documentation!
     :maxdepth: 2
     :caption: Contents:
 
+    installing.rst
     markdown.rst
     tutorials.rst
     examples.rst
