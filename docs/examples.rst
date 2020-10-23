@@ -47,5 +47,27 @@ createdata`.
 
 Implementation in flask
 =======================
+**app.py**
 
-**WORK IN PROGRESS**
+.. code-block:: python
+	import markdown  # pip3 install Flask markdown
+	from flask import Flask
+	from mdgen import MarkdownPostProvider
+	from faker import Faker
+	import markdown.extensions.fenced_code
+
+	app = Flask(__name__)
+
+
+	@app.route('/')
+	def index():
+		fake = Faker()
+		fake.add_provider(MarkdownPostProvider)
+		text = fake.post()  # Generate marked down text
+		marked_down_text = markdown.markdown(text, extensions=["fenced_code"])  # Convert markeddown text into HTML
+		return marked_down_text
+
+
+	if __name__ == '__main__':
+		app.run()
+	
