@@ -51,6 +51,7 @@ Implementation in flask
 In **app.py**
 
 .. code-block:: python
+
 	import markdown  # pip3 install Flask markdown
 	from flask import Flask
 	from mdgen import MarkdownPostProvider
