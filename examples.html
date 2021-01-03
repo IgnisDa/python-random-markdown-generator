@@ -29,7 +29,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -195,7 +194,42 @@ which will let us create a model instance using <code class="code docutils liter
 </div>
 <div class="section" id="implementation-in-flask">
 <h2>Implementation in flask<a class="headerlink" href="#implementation-in-flask" title="Permalink to this headline">¶</a></h2>
-<p><strong>WORK IN PROGRESS</strong></p>
+<dl>
+<dt>in app.py</dt><dd><p>from flask import Flask
+from mdgen import MarkdownPostProvider
+from faker import Faker
+import markdown.extensions.fenced_code</p>
+<p>from flask import Flask
+from flask_sqlalchemy import SQLAlchemy</p>
+<p>app = Flask(__name__)
+app.config[‘SQLALCHEMY_DATABASE_URI’] = ‘sqlite:////tmp/test.db’
+db = SQLAlchemy(app)</p>
+<dl>
+<dt>class Post(db.Model):</dt><dd><p>id = db.Column(db.Integer, primary_key=True)
+title = db.Column(db.String(80), nullable=False)
+body = db.Column(db.Text, nullable=False)
+pub_date = db.Column(db.DateTime, nullable=False,</p>
+<blockquote>
+<div><p>default=datetime.utcnow)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p>&#64;app.route(‘/’)
+def index():</p>
+<blockquote>
+<div><p>fake = Faker()
+fake.add_provider(MarkdownPostProvider)
+text = fake.post()
+marked_down_text = markdown.markdown(text, extensions=[“fenced_code”])
+p = Post(title=marked_down_text)
+return p</p>
+</div></blockquote>
+<dl class="simple">
+<dt>if __name__ == ‘__main__’:</dt><dd><p>app.run()</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </div>
 </div>
 
