@@ -48,7 +48,10 @@ createdata`.
 Implementation in flask
 =======================
 
-in app.py
+**in app.py**
+
+.. code-block:: python
+
     from flask import Flask
     from mdgen import MarkdownPostProvider
     from faker import Faker
@@ -67,6 +70,7 @@ in app.py
         body = db.Column(db.Text, nullable=False)
         pub_date = db.Column(db.DateTime, nullable=False,
             default=datetime.utcnow)
+
     @app.route('/')
     def index():
         fake = Faker()
