@@ -39,12 +39,12 @@ poetry add mdgen
 ## Sample usage
 
 ```python
->>> from faker import Faker
->>> from mdgen import MarkdownPostProvider
->>> fake = Faker()
->>> fake.add_provider(MarkdownPostProvider)
->>> fake_post = fake.post()
->>> print(fake_post)
+from faker import Faker
+from mdgen import MarkdownPostProvider
+fake = Faker()
+fake.add_provider(MarkdownPostProvider)
+fake_post = fake.post(size='medium') # available sizes: 'small', 'medium', 'large'
+print(fake_post)
 Drop question writer.
 
 > After step respond support argue issue western movie.
