@@ -194,42 +194,39 @@ which will let us create a model instance using <code class="code docutils liter
 </div>
 <div class="section" id="implementation-in-flask">
 <h2>Implementation in flask<a class="headerlink" href="#implementation-in-flask" title="Permalink to this headline">¶</a></h2>
-<dl>
-<dt>in app.py</dt><dd><p>from flask import Flask
-from mdgen import MarkdownPostProvider
-from faker import Faker
-import markdown.extensions.fenced_code</p>
-<p>from flask import Flask
-from flask_sqlalchemy import SQLAlchemy</p>
-<p>app = Flask(__name__)
-app.config[‘SQLALCHEMY_DATABASE_URI’] = ‘sqlite:////tmp/test.db’
-db = SQLAlchemy(app)</p>
-<dl>
-<dt>class Post(db.Model):</dt><dd><p>id = db.Column(db.Integer, primary_key=True)
-title = db.Column(db.String(80), nullable=False)
-body = db.Column(db.Text, nullable=False)
-pub_date = db.Column(db.DateTime, nullable=False,</p>
-<blockquote>
-<div><p>default=datetime.utcnow)</p>
-</div></blockquote>
-</dd>
-</dl>
-<p>&#64;app.route(‘/’)
-def index():</p>
-<blockquote>
-<div><p>fake = Faker()
-fake.add_provider(MarkdownPostProvider)
-text = fake.post()
-marked_down_text = markdown.markdown(text, extensions=[“fenced_code”])
-p = Post(title=marked_down_text)
-return p</p>
-</div></blockquote>
-<dl class="simple">
-<dt>if __name__ == ‘__main__’:</dt><dd><p>app.run()</p>
-</dd>
-</dl>
-</dd>
-</dl>
+<p><strong>in app.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">mdgen</span> <span class="kn">import</span> <span class="n">MarkdownPostProvider</span>
+<span class="kn">from</span> <span class="nn">faker</span> <span class="kn">import</span> <span class="n">Faker</span>
+<span class="kn">import</span> <span class="nn">markdown.extensions.fenced_code</span>
+
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask_sqlalchemy</span> <span class="kn">import</span> <span class="n">SQLAlchemy</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_DATABASE_URI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;sqlite:////tmp/test.db&#39;</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLAlchemy</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="mi">80</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">()</span>
+    <span class="n">fake</span><span class="o">.</span><span class="n">add_provider</span><span class="p">(</span><span class="n">MarkdownPostProvider</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">fake</span><span class="o">.</span><span class="n">post</span><span class="p">()</span>
+    <span class="n">marked_down_text</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fenced_code&quot;</span><span class="p">])</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">marked_down_text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 
