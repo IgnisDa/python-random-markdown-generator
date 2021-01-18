@@ -45,15 +45,20 @@ fake = Faker()
 fake.add_provider(MarkdownPostProvider)
 fake_post = fake.post(size='medium') # available sizes: 'small', 'medium', 'large'
 print(fake_post)
-Drop question writer.
+```
 
-> After step respond support argue issue western movie.
-[First memory suffer yard.](https://www.simmons.com/)
+The output from the above command:
 
-        6. Possible career speak another believe realize analysis.
-|First fear enter surface hospital nothing raise condition.|Name quickly deep free before if.|Rather church provide walk power thank student.|
-|----------------------------------------------------------|---------------------------------|-----------------------------------------------|
-|Box seem hotel picture popular politics century.|Side simple daughter central suggest.|Campaign nation Republican economy perform require.|
+```txt
+  Drop question writer.
+
+  > After step respond support argue issue western movie.
+  [First memory suffer yard.](https://www.simmons.com/)
+
+          1. Possible career speak another believe realize analysis.
+  |First fear enter surface hospital nothing raise condition.|Name quickly deep free before if.|Rather church provide walk power thank student.|
+  |----------------------------------------------------------|---------------------------------|-----------------------------------------------|
+  |Box seem hotel picture popular politics century.|Side simple daughter central suggest.|Campaign nation Republican economy perform require.|
 ```
 
 ## Documentation
