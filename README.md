@@ -50,15 +50,15 @@ print(fake_post)
 The output from the above command:
 
 ```txt
-  Drop question writer.
+Drop question writer.
 
-  > After step respond support argue issue western movie.
-  [First memory suffer yard.](https://www.simmons.com/)
+> After step respond support argue issue western movie.
+[First memory suffer yard.](https://www.simmons.com/)
 
-          1. Possible career speak another believe realize analysis.
-  |First fear enter surface hospital nothing raise condition.|Name quickly deep free before if.|Rather church provide walk power thank student.|
-  |----------------------------------------------------------|---------------------------------|-----------------------------------------------|
-  |Box seem hotel picture popular politics century.|Side simple daughter central suggest.|Campaign nation Republican economy perform require.|
+        1. Possible career speak another believe realize analysis.
+|First fear enter surface hospital nothing raise condition.|Name quickly deep free before if.|Rather church provide walk power thank student.|
+|----------------------------------------------------------|---------------------------------|-----------------------------------------------|
+|Box seem hotel picture popular politics century.|Side simple daughter central suggest.|Campaign nation Republican economy perform require.|
 ```
 
 ## Documentation
