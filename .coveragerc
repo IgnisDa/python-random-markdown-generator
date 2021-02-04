@@ -1,6 +1,16 @@
 [run]
 omit =
-    **.vscode**
-    .tox
+    **/.env/**
+    **/env/**
+    **/.venv/**
+    */migrations/*
     **.cache**
-    docs/
+   **.vscode**
+    *apps.py
+    *migrations/*
+    *settings*
+   **/wsgi.py
+   **/asgi.py
+    __init__.py
+    *tox*
+    new.py
