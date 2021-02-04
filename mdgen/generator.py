@@ -17,7 +17,6 @@ def create_list_items_list_for_list():
 
 
 class DataProvider:
-
     def __init__(self):
         self.markdown_gen = MarkdownOutputGenerator()
 
@@ -26,34 +25,34 @@ class DataProvider:
 
     def random_bold_and_italic_text(self):
         self.markdown_gen.add_bold_and_italic_text(
-            text=_fake.sentence(),
-            underscore=_fake.boolean()
+            text=_fake.sentence(), underscore=_fake.boolean()
         )
 
     def random_bold_text(self):
         self.markdown_gen.add_bold_text(_fake.word())
 
     def random_code_block(self):
-        self.markdown_gen.add_code_block(
-            code=_fake.paragraph(), language=_fake.word()
-        )
+        self.markdown_gen.add_code_block(code=_fake.paragraph(), language=_fake.word())
 
     def random_comment(self):
         self.markdown_gen.add_comment(comment_text=_fake.sentence())
 
     def random_header(self):
         self.markdown_gen.add_header(
-            text=_fake.sentence(), header_level=random.randint(1, 6),
-            atx=_fake.boolean(), linebreak=_fake.boolean()
+            text=_fake.sentence(),
+            header_level=random.randint(1, 6),
+            atx=_fake.boolean(),
+            linebreak=_fake.boolean(),
         )
 
     def random_horizontal_rule(self):
-        permitted_styles = ['hyphens', 'asterisks', 'underscores']
+        permitted_styles = ["hyphens", "asterisks", "underscores"]
         self.markdown_gen.add_horizontal_rule(style=random.choice(permitted_styles))
 
     def random_image(self):
+        image_url = "https://picsum.photos/{0}".format(random.randint(200, 500))
         self.markdown_gen.add_image(
-            alt_text=_fake.sentence(), image_url=_fake.url(), image_title=_fake.text()
+            alt_text=_fake.sentence(), image_url=image_url, image_title=_fake.text()
         )
 
     def random_italic_text(self):
@@ -96,10 +95,11 @@ class DataProvider:
         )
 
     def random_unordered_list_item(self):
-        permitted_styles = ['asterisk', 'plus', 'minus']
+        permitted_styles = ["asterisk", "plus", "minus"]
         self.markdown_gen.add_unordered_list_item(
-            text=_fake.sentence(), indent=random.randint(1, 4),
-            style=random.choice(permitted_styles)
+            text=_fake.sentence(),
+            indent=random.randint(1, 4),
+            style=random.choice(permitted_styles),
         )
 
     def get_output_text(self):
@@ -111,6 +111,6 @@ class DataProvider:
 
 def generate():
     members = inspect.getmembers(DataProvider, predicate=inspect.isfunction)
-    eligible = [member for member, method in members if member.startswith('random')]
+    eligible = [member for member, method in members if member.startswith("random")]
     eligible = random.choice(eligible)
     return eligible
