@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mdgen"
-version = "0.1.9"
+version = "0.1.10"
 description = "A library to generate random markdown text"
 authors = ["IgnisDa <ignisda2002@gmail.com>"]
 maintainers = ["IgnisDa <ignisda2002@gmail.com>"]
